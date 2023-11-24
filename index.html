@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaqueries.css" />
+  </head>
+  <body>
+    <nav id="desktop-nav">
+      <div class="logo">StudyGalaxy</div>
+      <div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#projects">Find Us On</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+    <nav id="hamburger-nav">
+      <div class="logo">StudyGalaxy</div>
+      <div class="hamburger-menu">
+        <div class="hamburger-icon" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div class="menu-links">
+          <li><a href="#about" onclick="toggleMenu()">About</a></li>
+          <li><a href="#projects" onclick="toggleMenu()">Find Us </a></li>
+          <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+        </div>
+      </div>
+    </nav>
+    <section id="profile">
+      <div class="section__pic-container">
+        <img src="./assets/SG.png" alt="John Doe profile picture" />
+      </div>
+      <div class="section__text">
+        <p class="section__text__p1">Hello</p>
+        <h1 class="title">Study Galaxy</h1>
+        <p class="section__text__p2">A Server For Studying</p>
+        <div id="socials-container">
+          <img
+            src="./assets/discord.svg"
+            alt="My Discord profile"
+            class="icon"
+            onclick="location.href='https://discord.gg/4mAtjzPaYd'"
+          />
+          <img
+            src="./assets/github.png"
+            alt="My Github profile"
+            class="icon"
+            onclick="location.href='https://github.com/Aditya-0918/Study-Galaxy-web-page-.git'"
+          />
+        </div>
+      </div>
+    </section>
+    <section id="about">
+      <p class="section__text__p1">Get To Know More</p>
+      <h1 class="title">About Us</h1>
+      <div class="section-container">
+        <div class="section__pic-container">
+          <img
+            src="./assets/SG.png"
+            alt="Profile picture"
+            class="about-pic"
+          />
+        </div>
+        <div class="about-details-container">
+          <div class="text-container">
+            <ul class="list-group">
+              <li class="list-group-item">A study Discord server with seasonal leaderboards, personal VCs, and Padoromo with a doubt section sounds like a great way to connect with other students, stay motivated, and get help with your studies.
+              </li>
+              <li class="list-group-item">Here are some potential benefits of joining such a server:
+              </li>
+              <li class="list-group-item">Seasonal leaderboards can help you track your progress and compete with others in a fun and friendly way. This can be a great way to stay motivated and make studying more enjoyable.
+              </li>
+              <li class="list-group-item"> Personal VCs can provide you with a private space to study with friends or classmates. This can be a great way to focus on your studies and avoid distractions.
+              </li>
+              <li class="list-group-item">Padoromo is a popular tool for creating study schedules and tracking your progress. Integrating Padoromo with the Discord server would make it easy to stay on top of your studies and share your progress with others.
+              </li>
+              <li class="list-group-item">A doubt section can provide you with a place to ask questions and get help from other students or tutors. This can be a valuable resource, especially if you're struggling with a particular topic.
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#experience'"
+      />
+    </section>
+    <br>
+    <section id="projects">
+      <p class="section__text__p1">You can</p>
+      <h1 class="title">Find Us On</h1>
+      <div class="experience-details-container">
+        <div class="about-containers">
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/youtube.svg"
+                alt="Project 1"
+                class="project-img "
+                onclick="location.href='https://www.youtube.com/channel/UCazoH44sbqb0sMy2DoKaqJA'"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Youtube</h2>
+
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/discord.svg"
+                alt="Project 2"
+                class="project-img"
+                onclick="location.href='https://discord.gg/4mAtjzPaYd'"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Discord</h2>
+            <div class="btn-container">
+
+            </div>
+          </div>
+          <div class="details-container color-container">
+            <div class="article-container">
+              <img
+                src="./assets/instagram.svg"
+                alt="Project 3"
+                class="project-img"
+                onclick="location.href='https://instagram.com/study_galaxyind?igshid=OGQ5ZDc2ODk2ZA=='"
+              />
+            </div>
+            <h2 class="experience-sub-title project-title">Instagram</h2>
+
+          </div>
+        </div>
+      </div>
+      <img
+        src="./assets/arrow.png"
+        alt="Arrow icon"
+        class="icon arrow"
+        onclick="location.href='./#contact'"
+      />
+    </section>
+    <section id="contact">
+      <p class="section__text__p1">Get in Touch</p>
+      <h1 class="title">Contact Me</h1>
+      <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+          <img
+            src="./assets/email.png"
+            alt="Email icon"
+            class="icon contact-icon email-icon"
+          />
+          <p><a href="mailto:Studyserver123456@gmail.com">Studyserver123456@gmail.com</a></p>
+        </div>
+        <div class="contact-info-container">
+          <img
+            src="./assets/discord.svg"
+            alt="Discord icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://discordapp.com/users/954956652430385172">@adi_56</a></p>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <nav>
+        <div class="nav-links-container">
+          <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Find Us On</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p>Copyright &#169; 2023 StudyGalaxy & Aditya. All Rights Reserved.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
