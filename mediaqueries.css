@@ -48,6 +48,11 @@
   widgetbot{
     width: 90vw !important;
   }
+  .list-group-item{
+    list-style-type: circle;
+    max-width: 80vw;
+    font-weight: 20px;
+  }
 }
 
 @media screen and (max-width: 600px) {

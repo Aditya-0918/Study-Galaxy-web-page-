@@ -430,4 +430,10 @@ footer p {
   text-align: center;
 }
 
-
+.list-group-item{
+  list-style-type: circle;
+  max-width: 40vw;
+  font-weight: 20px;
+  margin-left: 10vw;
+  margin-bottom: 20px;
+}
