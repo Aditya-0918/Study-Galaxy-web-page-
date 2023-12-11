@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <h1 id="greet"></h1>
     <h1 id="msg"></h1>
     <button id="signout">sign out</button>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-    let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
-    let UserInfo = JSON.parse(localStorage.getItem("user-info"));
-    let greet = document.getElementById('greet');
-    let msg = document.getElementById('msg');
-
-    msg.innerText = 'user with email '+ UserCreds.email +' loggen In';
-    greet.innerText = 'welcome ' + UserInfo.Name
 
 
-
-const logout =document.getElementById('signout');
+    const logout = document.getElementById('signout');
 
     let signout = () => {
         localStorage.removeItem("user-creds");
         localStorage.removeItem("user-info");
         window.location.href = 'Login.html'
     }
+
     let cheakCred = () => {
-        if (!localStorage.getItem("user-creds")){
+        if (!localStorage.getItem("user-creds")) {
             window.location.href = 'Login.html'
         }
     }
 
-    window.addEventListener('load' , cheakCred);
-    logout.addEventListener('click' , signout);
-    
+    window.addEventListener('load', cheakCred);
+    let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
+    let UserInfo = JSON.parse(localStorage.getItem("user-info"));
+    let greet = document.getElementById('greet');
+    let msg = document.getElementById('msg');
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "welcome back " + UserInfo.Name,
+        showConfirmButton: false,
+        timer: 1500
+    });
+
+
+    logout.addEventListener('click', signout);
+
 </script>
 
 </html>
