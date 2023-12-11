@@ -61,13 +61,13 @@
     <div class="card-body">
       <ul class="card-text fw-bold h4 ">
         <br>
-        <li>A study Discord server with seasonal leaderboards, personal VCs, and Padoromo with a doubt section sounds like a great way to connect with other students, stay motivated, and get help with your studies.</li>
+        <li>A study Discord server with seasonal leaderboards, personal VCs, and pomodoro with a doubt section sounds like a great way to connect with other students, stay motivated, and get help with your studies.</li>
         <br>
         <li>Seasonal leaderboards can help you track your progress and compete with others in a fun and friendly way. This can be a great way to stay motivated and make studying more enjoyable.</li>
         <br>
         <li>Personal VCs can provide you with a private space to study with friends or classmates. This can be a great way to focus on your studies and avoid distractions.</li>
         <br>
-        <li>Padoromo is a popular tool for creating study schedules and tracking your progress. Integrating Padoromo with the Discord server would make it easy to stay on top of your studies and share your progress with others.</li>
+        <li>pomodoro is a popular tool for creating study schedules and tracking your progress. Integrating pomodoro with the Discord server would make it easy to stay on top of your studies and share your progress with others.</li>
         <br>
         <li>A doubt section can provide you with a place to ask questions and get help from other students or tutors. This can be a valuable resource, especially if you're struggling with a particular topic.</li>
       </ul>
@@ -149,4 +149,24 @@
 <link href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet">
 
 </body>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBglkIqOIMsIIpnJBZtfQSRDdgRSXm-DPU",
+    authDomain: "studygalaxy-8aa56.firebaseapp.com",
+    projectId: "studygalaxy-8aa56",
+    storageBucket: "studygalaxy-8aa56.appspot.com",
+    messagingSenderId: "657368593724",
+    appId: "1:657368593724:web:ee0b1facca005fe9689a39"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+</script>
+<script type="module" src="auth.js"></script>
 </html>
