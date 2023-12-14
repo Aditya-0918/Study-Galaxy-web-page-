@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<style>
+    body {
+
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+
+
+    }
+    .opt {
+        display: none;
+    }
+    .sublabel {
+        align-self: end;
+        width: 50% !important;
+    }
+</style>
+
+<body data-bs-theme="dark">
+
+    <div class="container-fluid" style=" height: 100vh; justify-content: center;
+ align-items: center; display: flex;">
+
+        <div class="card">
+            <div class="card-header lh-lg">
+                <h2 id="question"></h2>
+            </div>
+            <div class="card-body">
+                <div style="width: 60vw;" class="btn-group-vertical btn-group-lg"  role="group"
+                    aria-label="Basic radio toggle button group ">
+                    <input type="radio" class="btn-check " name="btnradio" id="1" autocomplete="off">
+                    <label class="btn btn-outline-primary opt" id="opt1" for="1">option1</label>
+
+                    <input type="radio" value="2" class="btn-check " name="btnradio" id="2" autocomplete="off">
+                    <label class="btn btn-outline-primary opt" id="opt2" for="2">option2</label>
+
+                    <input type="radio" value="3" class="btn-check " name="btnradio" id="3" autocomplete="off">
+                    <label class="btn btn-outline-primary opt" id="opt3" for="3">option3</label>
+
+                    <input type="radio" value="4" class="btn-check" name="btnradio" id="4" autocomplete="off">
+                    <label class="btn btn-outline-primary opt" id="opt4" for="4">option4</label>
+
+                    <input type="radio" value="4" class="btn-check" name="btnradio" id="skip" autocomplete="off">
+                    <label class="btn btn-outline-primary opt" id="" for="skip">skip</label>
+
+                    <input id="submit" type="submit" style="display: none;">
+                    <label class="btn btn-outline-primary active mt-3 " id="sublabel"
+                        for="submit">Start</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+        <input type="checkbox" class="btn-check" id="btncheck1" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btncheck1">Checkbox 1</label>
+      
+        <input type="checkbox" class="btn-check" id="btncheck2" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btncheck2">Checkbox 2</label>
+      
+        <input type="checkbox" class="btn-check" id="btncheck3" autocomplete="off">
+        <label class="btn btn-outline-primary" for="btncheck3">Checkbox 3</label>
+      </div> -->
+
+</body>
+<script src="data/data.json"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+<script type="module">
+    let i = 0;
+    let q = 0;
+    let s = 0;
+    
+    const dataUrl = "data/data.json"; // Replace with the actual URL or path
+    const allRadioButtons = document.querySelectorAll('input[type="radio"]');
+
+
+
+
+    function cheakAns() {
+
+        document.getElementById('sublabel').innerHTML = 'Submit';
+        document.getElementById('sublabel').classList.add('sublabel');
+        document.querySelectorAll('.opt').forEach((opt) =>{
+            opt.classList.remove('opt')
+        })
+        for (const radio of allRadioButtons) {
+            fetch(dataUrl).then(response => response.json()) // Parse the JSON response
+                .then(data => {
+                    window.jsonData = data;
+                    document.getElementById('question').innerHTML = data[q].question;
+                    document.getElementById('opt1').innerHTML = data[q].options[0];
+                    document.getElementById('opt2').innerHTML = data[q].options[1];
+                    document.getElementById('opt3').innerHTML = data[q].options[2];
+                    document.getElementById('opt4').innerHTML = data[q].options[3];
+                    if (radio.checked) {
+                        if (`${radio.id}` === data[q].ans) {
+                            console.log(`${radio.id}`);
+                            i++;
+                            console.log(i);
+
+
+                        } else if (`${radio.id}` == 'skip'){
+                            console.log('skipped');
+                            s++
+                        }else {
+                            i--;
+                            console.log(i);
+                        }
+                    }
+
+
+
+
+                });
+            console.log(q);
+        }
+        setTimeout(() => q++, 100);
+        if (q==26){
+            alert('your score was ' + i + ", you skipped "+ s+ " questions");
+        }
+    }
+    const submit = document.getElementById('submit')
+
+    submit.addEventListener('click', cheakAns)
+
+</script>
+
+</html>

@@ -12,12 +12,12 @@
 
 <body style="background-color: #343a40;">
     <video autoplay loop muted
-        style="display: block; height: 100vh; width: 100vw; z-index: 0; position: fixed; left: 0; top: 0; background-attachment: fixed; object-fit: cover; margin: 0 !important; padding: 0;">
-        <source src="assets/bg.mp4" srcset="">
+        style="display: block; height: 100vh; width: 100vw; z-index: -2; position: fixed; left: 0; top: 0; background-attachment: fixed; object-fit: cover; margin: 0 !important; padding: 0;">
+        <source src="/assets/bg.mp4" srcset="">
     </video>
     <nav class="navbar navbar-expand-lg bg-dark border-body " data-bs-theme="dark"">
           <div class=" container-fluid">
-        <img src="./assets/SG-L.png" width="30" height="24">
+        <img src="/assets/SG-L.png" width="30" height="24">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
             aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -54,18 +54,35 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link pnding" href="#">mock-test</a>
+                            <a class="nav-link " href="quiz.html">mock-test</a>
                         </li>
                     </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Account
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a class="nav-link " id="signout" style="cursor: pointer;" href="#">Signout</a>
+                            </li>
+                        </ul>
+                        </li>
 
-
-            </ul>
+        </div>
         </div>
         </div>
     </nav>
 
 
-    <!-- <button  id="signout">sign out</button> -->
+
+    <!-- <img src="assets/person.png" alt="" style="display: block; height: 8vh; width: 8vh; background: #fff; border-radius: 500px; position: absolute; top: 30vh; left: 20vw;"   class="pfp"> -->
+
+
+
+
+
 </body>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -74,16 +91,17 @@
 
 
 
-const btns = document.querySelectorAll('.pnding');
-function underConstruction(){
-    Swal.fire({
-  title: "<strong>this page is under construction</strong>",
-  icon: "info",
-  showCloseButton: true,
-});
-};
-btns.forEach(btns => {
-       btns.addEventListener('click', underConstruction);
+    const btns = document.querySelectorAll('.pnding');
+    function underConstruction() {
+        Swal.fire({
+            title: "<strong>this page is under construction</strong>",
+            icon: "info",
+            showCloseButton: true,
+        });
+    };
+
+    btns.forEach(btns => {
+        btns.addEventListener('click', underConstruction);
     });
     const logout = document.getElementById('signout');
 
@@ -93,24 +111,24 @@ btns.forEach(btns => {
         window.location.href = 'Login.html'
     }
 
-    let cheakCred = () => {
-        if (!localStorage.getItem("user-creds")) {
-            window.location.href = 'Login.html'
-        }
-    }
+    // let cheakCred = () => {
+    //     if (!localStorage.getItem("user-creds")) {
+    //         window.location.href = 'Login.html'
+    //     }
+    // }
 
-    window.addEventListener('load', cheakCred);
-    let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
-    let UserInfo = JSON.parse(localStorage.getItem("user-info"));
-    let greet = document.getElementById('greet');
-    let msg = document.getElementById('msg');
-    Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "welcome back " + UserInfo.Name,
-        showConfirmButton: false,
-        timer: 1500
-    });
+    // window.addEventListener('load', cheakCred);
+    // let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
+    // let UserInfo = JSON.parse(localStorage.getItem("user-info"));
+    // let greet = document.getElementById('greet');
+    // let msg = document.getElementById('msg');
+    // Swal.fire({
+    //     position: "top-end",
+    //     icon: "success",
+    //     title: "welcome back " + UserInfo.Name,
+    //     showConfirmButton: false,
+    //     timer: 1500
+    // });
 
 
     logout.addEventListener('click', signout);
