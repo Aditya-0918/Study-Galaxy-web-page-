@@ -83,8 +83,7 @@
     let i = 0;
     let q = 0;
     let s = 0;
-    let c = 0;
-    let w = 0;
+    
     const dataUrl = "data/data.json"; // Replace with the actual URL or path
     const allRadioButtons = document.querySelectorAll('input[type="radio"]');
 
@@ -96,7 +95,7 @@
         document.getElementById('sublabel').innerHTML = 'Submit';
         document.getElementById('sublabel').classList.add('sublabel');
         document.querySelectorAll('.opt').forEach((opt) =>{
-            opt.classList.remove('opt');
+            opt.classList.remove('opt')
         })
         for (const radio of allRadioButtons) {
             fetch(dataUrl).then(response => response.json()) // Parse the JSON response
@@ -111,16 +110,14 @@
                         if (`${radio.id}` === data[q].ans) {
                             console.log(`${radio.id}`);
                             i++;
-                            c++;
                             console.log(i);
 
 
                         } else if (`${radio.id}` == 'skip'){
                             console.log('skipped');
-                            s++;
+                            s++
                         }else {
                             i--;
-                            w++;
                             console.log(i);
                         }
                     }
@@ -133,12 +130,12 @@
         }
         setTimeout(() => q++, 100);
         if (q==26){
-            alert('your score was ' + i + ", you skipped "+ s+ " questions " + w + "answers were wrong " + c + " answers were correct");
+            alert('your score was ' + i + ", you skipped "+ s+ " questions");
         }
     }
-    const submit = document.getElementById('submit');
+    const submit = document.getElementById('submit')
 
-    submit.addEventListener('click', cheakAns);
+    submit.addEventListener('click', cheakAns)
 
 </script>
 
