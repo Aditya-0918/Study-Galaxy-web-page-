@@ -96,7 +96,7 @@
         document.getElementById('sublabel').innerHTML = 'Submit';
         document.getElementById('sublabel').classList.add('sublabel');
         document.querySelectorAll('.opt').forEach((opt) =>{
-            opt.classList.remove('opt')
+            opt.classList.remove('opt');
         })
         for (const radio of allRadioButtons) {
             fetch(dataUrl).then(response => response.json()) // Parse the JSON response
@@ -117,7 +117,7 @@
 
                         } else if (`${radio.id}` == 'skip'){
                             console.log('skipped');
-                            s++
+                            s++;
                         }else {
                             i--;
                             w++;
@@ -133,12 +133,12 @@
         }
         setTimeout(() => q++, 100);
         if (q==26){
-            alert('your score was ' + i + ", you skipped "+ s+ " questions " + w "answers were wrong " + c + " answers were correct");
+            alert('your score was ' + i + ", you skipped "+ s+ " questions " + w + "answers were wrong " + c + " answers were correct");
         }
     }
-    const submit = document.getElementById('submit')
+    const submit = document.getElementById('submit');
 
-    submit.addEventListener('click', cheakAns)
+    submit.addEventListener('click', cheakAns);
 
 </script>
 
