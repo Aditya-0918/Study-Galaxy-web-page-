@@ -29,7 +29,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" style="cursor: pointer;" onclick="window.location.href = 'index.html';">Home</a>
+                    <a class="nav-link" style="cursor: pointer;" onclick="window.location.href = '/index.html';">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -111,24 +111,24 @@
         window.location.href = 'Login.html'
     }
 
-    // let cheakCred = () => {
-    //     if (!localStorage.getItem("user-creds")) {
-    //         window.location.href = 'Login.html'
-    //     }
-    // }
+    let cheakCred = () => {
+        if (!localStorage.getItem("user-creds")) {
+            window.location.href = 'Login.html'
+        }
+    }
 
-    // window.addEventListener('load', cheakCred);
-    // let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
-    // let UserInfo = JSON.parse(localStorage.getItem("user-info"));
-    // let greet = document.getElementById('greet');
-    // let msg = document.getElementById('msg');
-    // Swal.fire({
-    //     position: "top-end",
-    //     icon: "success",
-    //     title: "welcome back " + UserInfo.Name,
-    //     showConfirmButton: false,
-    //     timer: 1500
-    // });
+    window.addEventListener('load', cheakCred);
+    let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
+    let UserInfo = JSON.parse(localStorage.getItem("user-info"));
+    let greet = document.getElementById('greet');
+    let msg = document.getElementById('msg');
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "welcome back " + UserInfo.Name,
+       showConfirmButton: false,
+        timer: 1500
+     });
 
 
     logout.addEventListener('click', signout);
