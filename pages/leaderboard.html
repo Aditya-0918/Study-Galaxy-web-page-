@@ -8,9 +8,10 @@
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
     <title>Document</title>
+    <link rel="stylesheet" href="css/leaderboard.css">
 </head>
 
-<body style="background-color: #343a40;">
+<body style="background-color: #343a40;" data-bs-theme="dark">
     <video autoplay loop muted
         style="display: block; height: 100vh; width: 100vw; z-index: -2; position: fixed; left: 0; top: 0; background-attachment: fixed; object-fit: cover; margin: 0 !important; padding: 0;">
         <source src="/assets/bg.mp4" srcset="">
@@ -25,15 +26,16 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="">Dashboard</a>
+                    <a class="nav-link " href="">Dashboard</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" style="cursor: pointer;" onclick="window.location.href = '/index.html';">Home</a>
+                    <a class="nav-link" style="cursor: pointer;"
+                        onclick="window.location.href = '/index.html';">Home</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="leaderboard.html">leaderboard</a>
+                    <a class="nav-link active" href="#">leaderboard</a>
                 </li>
 
                 <li class="nav-item">
@@ -57,24 +59,40 @@
                             <a class="nav-link " href="quiz.html">mock-test</a>
                         </li>
                     </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
-                                <a class="nav-link " id="signout" style="cursor: pointer;" href="#">Signout</a>
-                            </li>
-                        </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Account
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link " id="signout" style="cursor: pointer;" href="#">Signout</a>
                         </li>
+                    </ul>
+                </li>
 
         </div>
         </div>
         </div>
     </nav>
 
+
+    <div class="container leaderboard-content">
+        <h1>leaderboard</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Score</th>
+                </tr>
+            </thead>
+            <tbody id="boardBody">
+          
+            </tbody>
+        </table>
+    </div>
 
 
     <!-- <img src="assets/person.png" alt="" style="display: block; height: 8vh; width: 8vh; background: #fff; border-radius: 500px; position: absolute; top: 30vh; left: 20vw;"   class="pfp"> -->
@@ -85,12 +103,13 @@
 
 </body>
 
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 <script>
-
-
-
-
     const btns = document.querySelectorAll('.pnding');
     function underConstruction() {
         Swal.fire({
@@ -117,18 +136,67 @@
         if (!localStorage.getItem("user-creds")) {
             window.location.href = 'Login.html'
         }
+
+
     }
 
     window.addEventListener('load', cheakCred);
-
-    let msg = document.getElementById('msg');
-
-
     logout.addEventListener('click', signout);
 
+    const firebaseConfig = {
+        apiKey: "AIzaSyBglkIqOIMsIIpnJBZtfQSRDdgRSXm-DPU",
+        authDomain: "studygalaxy-8aa56.firebaseapp.com",
+        databaseURL: "https://studygalaxy-8aa56-default-rtdb.firebaseio.com",
+        projectId: "studygalaxy-8aa56",
+        storageBucket: "studygalaxy-8aa56.appspot.com",
+        messagingSenderId: "657368593724",
+        appId: "1:657368593724:web:ee0b1facca005fe9689a39",
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    const databaseRef = firebase.database().ref();
+
+    // Specify the date
+    const date = '24-12-2023';
+
+// Retrieve data for a specific date
+databaseRef.child(date).once('value', (snapshot) => {
+    if (snapshot.exists()) {
+        // Data for the specified date exists
+        const dateData = snapshot.val();
+
+        // Convert the data to an array for sorting
+        const dataArray = Object.keys(dateData).map((uid) => ({
+            uid,
+            ...dateData[uid],
+        }));
+
+        // Sort the array based on scores in descending order
+        dataArray.sort((a, b) => b.score - a.score);
+
+        // Initialize the HTML string before the loop
+        var html = '';
+
+        // Assign serial numbers (sno) based on the sorted order
+        dataArray.forEach((user, index) => {
+            const sno = index + 1;
+
+            // Update the serial number in the database
+            databaseRef.child(date).child(user.uid).update({ sno });
+
+            // Append the HTML for each user to the string
+            html += `<tr><th scope="row">${sno}</th><td>${user.Name}</td><td>${user.score}</td></tr>`;
+            
+        });
+
+        // After the loop, update the HTML in the table body
+        const body = document.getElementById('boardBody');
+        body.innerHTML = html;
+    } else {
+        console.log(`No data found for the date: ${date}`);
+    }
+});
+
 </script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
 
 </html>

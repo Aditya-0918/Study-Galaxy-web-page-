@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.leaderboard-content{
+    color: white;
+    margin: 5vh auto;
+    background-color: #00000069;
+    min-height: 80vh;
+    padding: 15px;
+}
+tr:nth-child(2){
+    column-span: 2 ;
+}
+.table{
+    background: transparent !important;
+
+}
+th{
+    background-color: transparent !important;
+}
+td{
+    background-color: transparent !important;
+}

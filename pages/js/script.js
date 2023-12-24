@@ -299,3 +299,5 @@ Notification.requestPermission().then((permission) => {
     // User declined the slip. You can't send notifications.
   }
 });
+
+
