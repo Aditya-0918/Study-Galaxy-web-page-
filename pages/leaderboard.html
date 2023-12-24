@@ -89,7 +89,7 @@
                 </tr>
             </thead>
             <tbody id="boardBody">
-          
+
             </tbody>
         </table>
     </div>
@@ -136,8 +136,6 @@
         if (!localStorage.getItem("user-creds")) {
             window.location.href = 'Login.html'
         }
-
-
     }
 
     window.addEventListener('load', cheakCred);
@@ -159,43 +157,43 @@
     // Specify the date
     const date = '24-12-2023';
 
-// Retrieve data for a specific date
-databaseRef.child(date).once('value', (snapshot) => {
-    if (snapshot.exists()) {
-        // Data for the specified date exists
-        const dateData = snapshot.val();
+    // Retrieve data for a specific date
+    databaseRef.child(date).once('value', (snapshot) => {
+        if (snapshot.exists()) {
+            // Data for the specified date exists
+            const dateData = snapshot.val();
 
-        // Convert the data to an array for sorting
-        const dataArray = Object.keys(dateData).map((uid) => ({
-            uid,
-            ...dateData[uid],
-        }));
+            // Convert the data to an array for sorting
+            const dataArray = Object.keys(dateData).map((uid) => ({
+                uid,
+                ...dateData[uid],
+            }));
 
-        // Sort the array based on scores in descending order
-        dataArray.sort((a, b) => b.score - a.score);
+            // Sort the array based on scores in descending order
+            dataArray.sort((a, b) => b.score - a.score);
 
-        // Initialize the HTML string before the loop
-        var html = '';
+            // Initialize the HTML string before the loop
+            var html = '';
 
-        // Assign serial numbers (sno) based on the sorted order
-        dataArray.forEach((user, index) => {
-            const sno = index + 1;
+            // Assign serial numbers (sno) based on the sorted order
+            dataArray.forEach((user, index) => {
+                const sno = index + 1;
 
-            // Update the serial number in the database
-            databaseRef.child(date).child(user.uid).update({ sno });
+                // Update the serial number in the database
+                databaseRef.child(date).child(user.uid).update({ sno });
 
-            // Append the HTML for each user to the string
-            html += `<tr><th scope="row">${sno}</th><td>${user.Name}</td><td>${user.score}</td></tr>`;
-            
-        });
+                // Append the HTML for each user to the string
+                html += `<tr><th scope="row">${sno}</th><td>${user.Name}</td><td>${user.score}</td></tr>`;
 
-        // After the loop, update the HTML in the table body
-        const body = document.getElementById('boardBody');
-        body.innerHTML = html;
-    } else {
-        console.log(`No data found for the date: ${date}`);
-    }
-});
+            });
+
+            // After the loop, update the HTML in the table body
+            const body = document.getElementById('boardBody');
+            body.innerHTML = html;
+        } else {
+            console.log(`No data found for the date: ${date}`);
+        }
+    });
 
 </script>
 

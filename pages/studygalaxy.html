@@ -29,7 +29,8 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" style="cursor: pointer;" onclick="window.location.href = '/index.html';">Home</a>
+                    <a class="nav-link" style="cursor: pointer;"
+                        onclick="window.location.href = '/index.html';">Home</a>
                 </li>
 
                 <li class="nav-item">
@@ -57,18 +58,18 @@
                             <a class="nav-link " href="quiz.html">mock-test</a>
                         </li>
                     </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Account
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li class="nav-item">
-                                <a class="nav-link " id="signout" style="cursor: pointer;" href="#">Signout</a>
-                            </li>
-                        </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Account
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item">
+                            <a class="nav-link " id="signout" style="cursor: pointer;" href="#">Signout</a>
                         </li>
+                    </ul>
+                </li>
 
         </div>
         </div>
@@ -117,7 +118,8 @@
         if (!localStorage.getItem("user-creds")) {
             window.location.href = 'Login.html'
         }
-    }
+}
+
 
     window.addEventListener('load', cheakCred);
 

@@ -2,6 +2,8 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
     import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
     import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { sendEmailVerification } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
     // TODO: Add SDKs for Firebase products that you want to use
     // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -31,51 +33,92 @@
 
     let registerUser = evt => {
         evt.preventDefault();
-        createUserWithEmailAndPassword(auth, emailreg.value, passwordreg.value).then(async (credentials) => {
-            Swal.fire({
-                title: "Success!",
-                text: "Your account has been created",
-                icon: "success"
+        createUserWithEmailAndPassword(auth, emailreg.value, passwordreg.value)
+            .then(async (credentials) => {
+                // Send verification email
+                await sendVerificationEmail(credentials.user);
+    
+                Swal.fire({
+                    title: "Success!",
+                    text: "Your account has been created. Please check your email for verification.",
+                    icon: "success"
+                });
+    
+                var ref = doc(db, "UserAuthList", credentials.user.uid);
+                await setDoc(ref, {
+                    Name: username.value,
+                    email: emailreg.value,
+                });
+    
+                console.log(credentials);
+            })
+            .catch((error) => {
+                Swal.fire({
+                    title: "Error!",
+                    text: error.message,
+                    icon: "error"
+                });
+    
+                console.error(error.code);
+                console.error(error.message);
             });
-            var ref = doc(db, "UserAuthList", credentials.user.uid);
-            await setDoc(ref, {
-                Name: username.value,
-            });
-            console.log(credentials);
-
-        }).catch((error) => {
-            Swal.fire({
-                title: "error!",
-                text: error.message,
-                icon: "error"
-            });
-            console.log(error.code);
-            console.log(error.message);
-        })
     };
-    let signInUser = evt => {
+    
+    // Send verification email function
+    async function sendVerificationEmail(user) {
+        try {
+            await sendEmailVerification(user);
+            console.log("Verification email sent!");
+        } catch (error) {
+            console.error("Error sending verification email:", error.message);
+            throw error; // Rethrow the error to be caught in the main registerUser catch block
+        }
+    };
+    
+    let signInUser = async evt => {
         evt.preventDefault();
-        signInWithEmailAndPassword(auth, email.value, password.value).then(async (credentials) => {
-            Swal.fire({ html: `<span class="spinner-border text-dark spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...` });
-            var ref = doc(db, "UserAuthList", credentials.user.uid);
-            const docSnap = await getDoc(ref);
-            if (docSnap.exists()) {
-                localStorage.setItem("user-info", JSON.stringify({
-                    Name: docSnap.data().Name,
-                }))
-                localStorage.setItem("user-creds", JSON.stringify(credentials.user));
-                window.location.href = "studygalaxy.html";
-                
+        const emailValue = email.value;
+        const passwordValue = password.value;
+    
+        try {
+            const credentials = await signInWithEmailAndPassword(auth, emailValue, passwordValue);
+    
+            // Check if the email is verified
+            if (credentials.user.emailVerified) {
+                // Proceed with sign-in
+                Swal.fire({
+                    html: `<span class="spinner-border text-dark spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`
+                });
+    
+                const ref = doc(db, "UserAuthList", credentials.user.uid);
+                const docSnap = await getDoc(ref);
+    
+                if (docSnap.exists()) {
+                    localStorage.setItem("user-info", JSON.stringify({
+                        Name: docSnap.data().Name,
+                    }));
+                    localStorage.setItem("user-creds", JSON.stringify(credentials.user));
+                    window.location.href = "studygalaxy.html";
+                }
+            } else {
+                // Show verification prompt
+                Swal.fire({
+                    title: "Verify!",
+                    text: "Please verify your email address",
+                    icon: "info"
+                });
             }
-        }).catch((error) => {
+        } catch (error) {
             Swal.fire({
-                title: "error!",
+                title: "Error!",
                 text: error.message,
                 icon: "error"
             });
             console.log(error.code);
             console.log(error.message);
-        })
-    }
+        }
+    };
+    
+   
     loginForm.addEventListener('submit', signInUser);
     signupForm.addEventListener('submit', registerUser);
