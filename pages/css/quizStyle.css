@@ -199,3 +199,8 @@ select {
     border-radius: 0;
   }
 }
+.settings{
+  color: white;
+  padding-left: 20px;
+}
+.settings h3{display: inline; list-style-position: inside; text-align: center; }

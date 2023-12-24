@@ -1,17 +1,36 @@
+//
+const firebaseConfig = {
+  apiKey: "AIzaSyBglkIqOIMsIIpnJBZtfQSRDdgRSXm-DPU",
+  authDomain: "studygalaxy-8aa56.firebaseapp.com",
+  databaseURL: "https://studygalaxy-8aa56-default-rtdb.firebaseio.com",
+  projectId: "studygalaxy-8aa56",
+  storageBucket: "studygalaxy-8aa56.appspot.com",
+  messagingSenderId: "657368593724",
+  appId: "1:657368593724:web:ee0b1facca005fe9689a39",
+};
+firebase.initializeApp(firebaseConfig);
+let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
+let UserInfo = JSON.parse(localStorage.getItem("user-info"));
+
+const d = new Date();
+let date = d.getDate();
+let month = d.getMonth() + 1;
+let year = d.getFullYear();
+let div = date + "-" + month + "-" + year;
+
+const database = firebase.database();
+const scoreRef = database.ref(div);
 const progressBar = document.querySelector(".progress-bar"),
   progressText = document.querySelector(".progress-text");
 
+let result = "";
 const progress = (value) => {
   const percentage = (value / time) * 100;
   progressBar.style.width = `${percentage}%`;
-  progressText.innerHTML = `${value}`;
+  progressText.innerHTML = result;
 };
 
 const startBtn = document.querySelector(".start"),
-  numQuestions = document.querySelector("#num-questions"),
-  category = document.querySelector("#category"),
-  difficulty = document.querySelector("#chapters"),
-  timePerQuestion = document.querySelector("#time"),
   quiz = document.querySelector(".quiz"),
   startScreen = document.querySelector(".start-screen");
 
@@ -20,13 +39,38 @@ let questions = [],
   score = 0,
   currentQuestion,
   timer;
-
+let skipped = 0;
+let crect = 0;
+let wrng = 0;
 const startQuiz = () => {
-  const num = numQuestions.value,
-    cat = category.value,
-    diff = difficulty.value;
+  const num = 25;
   loadingAnimation();
-  const url = `https://opentdb.com/api.php?amount=10&category=9&difficulty=easy&type=multiple`;
+  let myTimeout;
+
+  function disqualify() {
+    firebase.database().ref(div).child(UserCreds.uid).set({
+      Name: UserInfo.Name,
+      time: now,
+      status: "disqualified",
+      email: UserCreds.email,
+    });
+    window.location.reload();
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      notification = new Notification("Comeback please", {
+        body: "please come back or you'll be disqualified",
+        tag: "alert notification",
+      });
+
+      myTimeout = setTimeout(disqualify, 15000);
+    } else {
+      notification.close();
+      clearTimeout(myTimeout); // Clear the timeout when the notification is closed
+    }
+  });
+  const url = `data/data.json`;
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
@@ -84,7 +128,7 @@ const showQuestion = (question) => {
     });
   });
 
-  time = timePerQuestion.value;
+  time = 180;
   startTimer(time);
 };
 
@@ -96,6 +140,20 @@ const startTimer = (time) => {
     if (time >= 0) {
       progress(time);
       time--;
+      const totalSeconds = time;
+
+      // 👇️ get the number of full minutes
+      const minutes = Math.floor(totalSeconds / 60);
+
+      // 👇️ get the remainder of the seconds
+      const seconds = totalSeconds % 60;
+
+      function padTo2Digits(num) {
+        return num.toString().padStart(2, "0");
+      }
+
+      // ✅ format as MM:SS
+      result = `${padTo2Digits(minutes)}:${padTo2Digits(seconds)}`;
     } else {
       checkAnswer();
     }
@@ -103,6 +161,7 @@ const startTimer = (time) => {
 };
 
 const loadingAnimation = () => {
+  startBtn.disabled = true;
   startBtn.innerHTML = "Loading";
   const loadingInterval = setInterval(() => {
     if (startBtn.innerHTML.length === 10) {
@@ -112,25 +171,7 @@ const loadingAnimation = () => {
     }
   }, 500);
 };
-function defineProperty() {
-  var osccred = document.createElement("div");
-  osccred.innerHTML =
-    "A Project By <a href='https://www.youtube.com/@opensourcecoding' target=_blank>Open Source Coding</a>";
-  osccred.style.position = "absolute";
-  osccred.style.bottom = "0";
-  osccred.style.right = "0";
-  osccred.style.fontSize = "10px";
-  osccred.style.color = "#ccc";
-  osccred.style.fontFamily = "sans-serif";
-  osccred.style.padding = "5px";
-  osccred.style.background = "#fff";
-  osccred.style.borderTopLeftRadius = "5px";
-  osccred.style.borderBottomRightRadius = "5px";
-  osccred.style.boxShadow = "0 0 5px #ccc";
-  document.body.appendChild(osccred);
-}
 
-defineProperty();
 
 const submitBtn = document.querySelector(".submit"),
   nextBtn = document.querySelector(".next");
@@ -153,8 +194,10 @@ const checkAnswer = () => {
     if (answer === questions[currentQuestion - 1].correct_answer) {
       score++;
       selectedAnswer.classList.add("correct");
+      crect++;
     } else {
       selectedAnswer.classList.add("wrong");
+      wrng++;
       const correctAnswer = document
         .querySelectorAll(".answer")
         .forEach((answer) => {
@@ -175,6 +218,7 @@ const checkAnswer = () => {
           questions[currentQuestion - 1].correct_answer
         ) {
           answer.classList.add("correct");
+          skipped++;
         }
       });
   }
@@ -186,7 +230,7 @@ const checkAnswer = () => {
   submitBtn.style.display = "none";
   nextBtn.style.display = "block";
 };
-
+const now = Date();
 const nextQuestion = () => {
   if (currentQuestion < questions.length) {
     currentQuestion++;
@@ -195,15 +239,26 @@ const nextQuestion = () => {
     showScore();
   }
 };
-
 const endScreen = document.querySelector(".end-screen"),
   finalScore = document.querySelector(".final-score"),
   totalScore = document.querySelector(".total-score");
 const showScore = () => {
   endScreen.classList.remove("hide");
   quiz.classList.add("hide");
-  finalScore.innerHTML = score;
-  totalScore.innerHTML = `/ ${questions.length}`;
+  const totalquestions = parseInt(`${questions.length}`);
+  finalScore.innerHTML = crect * 4 - wrng;
+  totalScore.innerHTML = "/" + totalquestions * 4;
+
+  firebase
+    .database()
+    .ref(div)
+    .child(UserCreds.uid)
+    .set({
+      Name: UserInfo.Name,
+      score: crect * 4 - wrng,
+      time: now,
+      email: UserCreds.email,
+    });
 };
 
 const restartBtn = document.querySelector(".restart");
@@ -215,3 +270,32 @@ const playAdudio = (src) => {
   const audio = new Audio(src);
   audio.play();
 };
+
+let cheakCred = () => {
+  if (!localStorage.getItem("user-creds")) {
+    window.location.href = "/Login.html";
+  }
+  const messagesRef = firebase.database().ref(div);
+  // Use a one-time query to check for the UID folder
+  messagesRef
+    .orderByKey()
+    .equalTo(UserCreds.uid)
+    .once("value", (snapshot) => {
+      if (snapshot.exists()) {
+        // UID folder exists! Run the desired function
+        window.location.href = "studygalaxy.html";
+      } else {
+        // UID folder doesn't exist, handle this case if needed
+        console.log("nah");
+      }
+    });
+};
+let notification;
+window.addEventListener("load", cheakCred);
+Notification.requestPermission().then((permission) => {
+  if (permission === "granted") {
+    // User has signed the slip! You can now send notifications.
+  } else {
+    // User declined the slip. You can't send notifications.
+  }
+});
