@@ -1,10 +1,130 @@
 {
   "response_code": 0,
-  "results": [
+  "results":[
     {
-      "question": "What is the profession of Elon Musk&#039;s mom, Maye Musk?",
-      "correct_answer": "Model",
-      "incorrect_answers": ["Professor", "Biologist", "Musician"]
+      "question": "Which of the following is a reducing sugar?",
+      "correct_answer": "Fructose",
+      "incorrect_answers": ["Sucrose", "Lactose", "Maltose"]
+    },
+    {
+      "question": "What is the primary function of tRNA in protein synthesis?",
+      "correct_answer": "Carrying amino acids to the ribosome",
+      "incorrect_answers": ["Initiating translation", "Building peptide bonds", "Transcribing DNA"]
+    },
+    {
+      "question": "In glycolysis, which molecule is produced by the cleavage of fructose-1,6-bisphosphate?",
+      "correct_answer": "Dihydroxyacetone phosphate",
+      "incorrect_answers": ["3-phosphoglycerate", "2-phosphoglycerate", "Pyruvate"]
+    },
+    {
+      "question": "What is the role of NAD+ in cellular respiration?",
+      "correct_answer": "Accepting electrons and becoming reduced to NADH",
+      "incorrect_answers": ["Donating electrons and becoming oxidized to NAD+", "Acting as a coenzyme in the citric acid cycle", "Stabilizing ATP molecules"]
+    },
+    {
+      "question": "Which of the following is a function of cholesterol in the cell membrane?",
+      "correct_answer": "Maintaining membrane fluidity and stability",
+      "incorrect_answers": ["Catalyzing lipid synthesis", "Transporting ions across the membrane", "Initiating cell signaling pathways"]
+    },
+    {
+      "question": "What is the secondary structure of a protein?",
+      "correct_answer": "Alpha helix and beta sheet",
+      "incorrect_answers": ["Primary sequence", "Tertiary structure", "Quaternary structure"]
+    },
+    {
+      "question": "In DNA replication, what enzyme synthesizes the new complementary strand?",
+      "correct_answer": "DNA polymerase",
+      "incorrect_answers": ["RNA polymerase", "Helicase", "Ligase"]
+    },
+    {
+      "question": "Which of the following is a non-essential amino acid?",
+      "correct_answer": "Alanine",
+      "incorrect_answers": ["Valine", "Leucine", "Isoleucine"]
+    },
+    {
+      "question": "What is the primary role of RNA interference (RNAi) in cells?",
+      "correct_answer": "Regulating gene expression by silencing mRNA",
+      "incorrect_answers": ["Facilitating DNA replication", "Enhancing protein translation", "Inducing apoptosis"]
+    },
+    {
+      "question": "During oxidative phosphorylation, where does the electron transport chain occur?",
+      "correct_answer": "Inner mitochondrial membrane",
+      "incorrect_answers": ["Cytoplasm", "Outer mitochondrial membrane", "Endoplasmic reticulum"]
+    },
+    {
+      "question": "What is the function of ribozymes in cells?",
+      "correct_answer": "Catalyzing chemical reactions during RNA processing",
+      "incorrect_answers": ["Synthesizing DNA strands", "Modifying proteins", "Transporting ions across membranes"]
+    },
+    {
+      "question": "Which vitamin is essential for the synthesis of collagen in connective tissues?",
+      "correct_answer": "Vitamin C",
+      "incorrect_answers": ["Vitamin A", "Vitamin D", "Vitamin K"]
+    },
+    {
+      "question": "What is the primary role of ATP in cellular processes?",
+      "correct_answer": "Energy currency for cellular work",
+      "incorrect_answers": ["Stabilizing cell membranes", "Regulating gene expression", "Facilitating protein folding"]
+    },
+    {
+      "question": "In DNA, what is the complementary base pair for adenine?",
+      "correct_answer": "Thymine",
+      "incorrect_answers": ["Cytosine", "Guanine", "Uracil"]
+    },
+    {
+      "question": "What is the function of histones in eukaryotic cells?",
+      "correct_answer": "Facilitating DNA packaging and compaction",
+      "incorrect_answers": ["Initiating DNA replication", "Acting as enzymes in transcription", "Transporting mRNA to ribosomes"]
+    },
+    {
+      "question": "During the citric acid cycle, which molecule is produced by substrate-level phosphorylation?",
+      "correct_answer": "GTP",
+      "incorrect_answers": ["ATP", "NADH", "FADH2"]
+    },
+    {
+      "question": "What is the role of microtubules in eukaryotic cells?",
+      "correct_answer": "Providing structural support and facilitating intracellular transport",
+      "incorrect_answers": ["Catalyzing protein synthesis", "Regulating cell division", "Storing genetic information"]
+    },
+    {
+      "question": "Which of the following is a function of the smooth endoplasmic reticulum?",
+      "correct_answer": "Synthesizing lipids and detoxifying drugs",
+      "incorrect_answers": ["Modifying and packaging proteins", "Generating ATP", "Storing calcium ions"]
+    },
+    {
+      "question": "What is the structure of a nucleosome?",
+      "correct_answer": "DNA wrapped around histone proteins",
+      "incorrect_answers": ["Double-stranded RNA", "Single-stranded DNA", "Protein kinase complex"]
+    },
+    {
+      "question": "During translation, what is the role of the tRNA molecule?",
+      "correct_answer": "Bringing amino acids to the ribosome based on mRNA codons",
+      "incorrect_answers": ["Reading the mRNA template and synthesizing a complementary RNA strand", "Cleaving RNA transcripts", "Facilitating ribosome assembly"]
+    },
+    {
+      "question": "In glycolysis, what is the net gain of ATP molecules per glucose molecule?",
+      "correct_answer": "2 ATP",
+      "incorrect_answers": ["4 ATP", "6 ATP", "8 ATP"]
+    },
+    {
+      "question": "What is the function of restriction enzymes in molecular biology?",
+      "correct_answer": "Cutting DNA at specific recognition sequences",
+      "incorrect_answers": ["Replicating DNA strands", "Joining DNA fragments together", "Transcribing RNA from DNA"]
+    },
+    {
+      "question": "Which of the following is an example of a secondary messenger in cell signaling?",
+      "correct_answer": "cAMP (cyclic AMP)",
+      "incorrect_answers": ["cGMP (cyclic GMP)", "IP3 (inositol trisphosphate)", "Ca2+ ions"]
+    },
+    {
+      "question": "What is the significance of the pentose phosphate pathway in cells?",
+      "correct_answer": "Producing NADPH for biosynthetic reactions",
+      "incorrect_answers": ["Generating ATP through substrate-level phosphorylation", "Breaking down fatty acids for energy", "Synthesizing ribose-5-phosphate for nucleotide production"]
+    },
+    {
+      "question": "During mitosis, when do the sister chromatids separate and move to opposite poles of the cell?",
+      "correct_answer": "Anaphase",
+      "incorrect_answers": ["Prophase", "Metaphase", "Telophase"]
     }
   ]
 }
