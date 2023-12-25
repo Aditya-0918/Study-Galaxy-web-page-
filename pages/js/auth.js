@@ -31,38 +31,50 @@
     let username = document.getElementById('username');
 
 
-    let registerUser = evt => {
+    let registerUser = async evt => {
         evt.preventDefault();
-        createUserWithEmailAndPassword(auth, emailreg.value, passwordreg.value)
-            .then(async (credentials) => {
-                // Send verification email
-                await sendVerificationEmail(credentials.user);
+        
+        try {
+            const credentials = await createUserWithEmailAndPassword(auth, emailreg.value, passwordreg.value);
     
-                Swal.fire({
-                    title: "Success!",
-                    text: "Your account has been created. Please check your email for verification.",
-                    icon: "success"
-                });
+            // Send verification email
+            await sendVerificationEmail(credentials.user);
     
-                var ref = doc(db, "UserAuthList", credentials.user.uid);
-                await setDoc(ref, {
-                    Name: username.value,
-                    email: emailreg.value,
-                });
-    
-                console.log(credentials);
-            })
-            .catch((error) => {
-                Swal.fire({
-                    title: "Error!",
-                    text: error.message,
-                    icon: "error"
-                });
-    
-                console.error(error.code);
-                console.error(error.message);
+            // Increment user counter
+            const userCounterRef = doc(db, "UserAuthList", "userCounter");
+            const counterDoc = await getDoc(userCounterRef);
+            let userCount = counterDoc.exists() ? counterDoc.data().count + 1 : 1;
+            
+            // Set user registration details with the incremented counter
+            const userRef = doc(db, "UserAuthList", credentials.user.uid);
+            await setDoc(userRef, {
+                Name: username.value,
+                email: emailreg.value,
+                regNo: userCount,
             });
+    
+            // Update the user counter in the database
+            await setDoc(userCounterRef, { count: userCount });
+    
+            Swal.fire({
+                title: "Success!",
+                text: "Your account has been created. Please check your email for verification.",
+                icon: "success"
+            });
+    
+            console.log(credentials);
+        } catch (error) {
+            Swal.fire({
+                title: "Error!",
+                text: error.message,
+                icon: "error"
+            });
+    
+            console.error(error.code);
+            console.error(error.message);
+        }
     };
+    
     
     // Send verification email function
     async function sendVerificationEmail(user) {

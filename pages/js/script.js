@@ -274,7 +274,7 @@ const playAdudio = (src) => {
 let cheakCred = () => {
   if (!localStorage.getItem("user-creds")) {
     window.location.href = "/Login.html";
-  }else{    window.location.href = "/Login.html";}
+  }else{    window.location.href = "studygalaxy.html";}
   const messagesRef = firebase.database().ref(div);
   // Use a one-time query to check for the UID folder
   messagesRef
@@ -292,11 +292,6 @@ let cheakCred = () => {
 };
 let notification;
 window.addEventListener("load", cheakCred);
-Notification.requestPermission().then((permission) => {
-  if (permission === "granted") {
-    // User has signed the slip! You can now send notifications.
-  } else {
-    // User declined the slip. You can't send notifications.
-  }
-});
-
+Notification.requestPermission();
+
+
