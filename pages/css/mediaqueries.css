@@ -18,29 +18,9 @@
   .section__pic-container img{
     height: 15vh;
   }
-  #desktop-nav {
-    display: none;
-  }
-  #hamburger-nav {
-    display: flex;
-  }
-  #experience,
-  .experience-details-container {
-    margin-top: 2rem;
-  }
   #profile,
   .section-container {
     display: block;
-  }
-  .arrow {
-    display: none;
-  }
-  section,
-  .section-container {
-    height: fit-content;
-  }
-  section {
-    margin: 0 5%;
   }
   .section__pic-container {
     width: 275px;
@@ -48,35 +28,12 @@
     margin: 0 auto ;
     padding: 0;
   }
-  .about-containers {
-    margin-top: 0;
-  }
   widgetbot{
     width: 90vw !important;
   }
-  .list-group-item{
-    list-style-type: circle;
-    max-width: 80vw;
-    font-weight: 20px;
-  }
-  #aboutUs .card-text{
-    font-weight: 550!important;
-    font-size: calc(1.1rem + .3vw) !important;
-}
 }
 
 @media screen and (max-width: 600px) {
-  #contact,
-  footer {
-    height: 40vh;
-  }
-  article {
-    font-size: 1rem;
-  }
-  footer nav {
-    height: fit-content;
-    margin-bottom: 2rem;
-  }
   .section__pic-container {
     display: flex;
     height: 50px;
@@ -87,29 +44,8 @@
     height: 13vh;
   } 
 
-
-  .about-containers,
-  .contact-info-upper-container,
-  .btn-container {
-    flex-wrap: wrap;
-  }
-  .contact-info-container {
-    margin: 0;
-  }
-  .contact-info-container p,
-  .nav-links li a {
-    font-size: 1rem;
-  }
   .experience-sub-title {
     font-size: 1.25rem;
-  }
-  .logo {
-    font-size: 1.5rem;
-  }
-  .nav-links {
-    flex-direction: column;
-    gap: 0.5rem;
-    text-align: center;
   }
   .section__pic-container {
     width: auto;
@@ -137,5 +73,9 @@ footer ul svg {
 }
 footer  span {
   margin-left: .1rem !important;
+}
+.card{
+  display: flex;
+  flex-direction: column;
 }
 }

@@ -274,7 +274,7 @@ const playAdudio = (src) => {
 let cheakCred = () => {
   if (!localStorage.getItem("user-creds")) {
     window.location.href = "/Login.html";
-  }else{    window.location.href = "studygalaxy.html";}
+  }
   const messagesRef = firebase.database().ref(div);
   // Use a one-time query to check for the UID folder
   messagesRef
