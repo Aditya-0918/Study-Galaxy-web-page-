@@ -292,8 +292,11 @@
             time: firebase.database.ServerValue.increment(clock - time),
           });
       }
-      window.location.href = "/pages/studygalaxy.html";
+
+      setTimeout(() => {
+        window.location.href = "/pages/studygalaxy.html";
+      }, 100);
     });
-    document.getElementById("name").innerHTML += `${UserInfo.Name}`
+    document.getElementById("name").innerHTML += `${UserInfo.Name}`;
   </script>
 </html>
