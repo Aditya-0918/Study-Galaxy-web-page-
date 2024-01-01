@@ -61,7 +61,7 @@ nav {
   position: absolute;
   right: 0;
 
-  transition: 1s ease-in;
+  transition: .5s ease-in;
 }
 nav ul {
   list-style: none;
@@ -141,7 +141,6 @@ nav ul {
     width: 100vw;
     border-left: none;
     border-top: #fff 3px solid;
-    margin: 0;
     padding: 0;
     background-color: #212529;
   }
@@ -149,6 +148,8 @@ nav ul {
     display: flex;
     width: 100vw;
     justify-content: space-between;
+    margin: 0 !important;
+
   }
   .nav {
     transform: translateY(100%);
