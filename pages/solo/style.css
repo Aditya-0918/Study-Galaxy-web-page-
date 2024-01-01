@@ -1,0 +1,180 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Bhai+2&family=Quando&family=Roboto+Mono:wght@700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+  overflow: hidden;
+}
+.quote .h4 {
+  font-family: "Quando";
+  color: rgba(215, 213, 213, 0.71);
+  text-shadow: #212529 1px 1px;
+  font-weight: 400;
+}
+.quote span{
+  display: flex;
+}
+.quote .h5{
+  font-family: "sans-serif";
+}
+
+.quote {
+  font-family: "Quando";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  width: 50vw;
+}
+.cont {
+  display: flex;
+  color: #fff;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  margin: 0 !important;
+  overflow: hidden;
+  flex-direction: column;
+  text-wrap: wrap;
+}
+.profile {
+  position: absolute;
+  top: 10vmin;
+  left: 10vmin;
+  display: flex;
+  flex-direction: column;
+
+  font-family: 'Baloo Bhai 2', sans-serif;  
+}
+.profile .h5 {
+  color: rgba(255, 255, 255, 0.77);
+}
+nav {
+  display: flex;
+  justify-self: center;
+
+  border-left: 3px #fff solid;
+  position: absolute;
+  right: 0;
+
+  transition: 1s ease-in;
+}
+nav ul {
+  list-style: none;
+  font-size: 40px;
+  padding: 20px;
+}
+.video-player {
+  width: 120vw !important;
+  height: 110vh !important;
+  pointer-events: none;
+  transform: translateY(-10vh) translateX(-10vw);
+}
+#pomodoro {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 124.512px;
+  display: flex;
+  flex-direction: column;
+}
+.bi-gear {
+  color: #fff;
+  font-size: 40px;
+  display: none;
+}
+
+.bt {
+  display: none;
+}
+@media (max-width: 1450px) {
+  .video-player {
+    width: 125vw !important;
+    height: 140vh !important;
+    transform: translateY(-20vh) translateX(-10vw);
+  }
+}
+@media (max-width: 1270px) {
+  .video-player {
+    width: 160vw !important;
+    height: 140vh !important;
+    transform: translateY(-20vh) translateX(-20vw);
+  }
+}
+@media (max-width: 1000px) {
+  .video-player {
+    width: 190vw !important;
+    height: 140vh !important;
+    transform: translateY(-20vh) translateX(-20vw);
+  }
+}
+@media (max-width: 840px) {
+  .video-player {
+    width: 250vw !important;
+    height: 140vh !important;
+    transform: translateY(-20vh) translateX(-50vw);
+  }
+}
+@media (max-width: 650px) {
+  #pomodoro {
+    font-family: "Roboto Mono", monospace;
+    font-size: 90.512px;
+  }
+
+  .video-player {
+    width: 415vw !important;
+    height: 140vh !important;
+    transform: translateY(-20vh) translateX(-140vw);
+  }
+}
+@media (max-width: 500px) {
+  .profile {
+    display: none;
+  }
+  nav {
+    display: flex;
+    flex-direction: row;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    border-left: none;
+    border-top: #fff 3px solid;
+    margin: 0;
+    padding: 0;
+    background-color: #212529;
+  }
+  nav ul {
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+  }
+  .nav {
+    transform: translateY(100%);
+  }
+  .btn1 {
+    display: block;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+  }
+  .bt {
+    display: block;
+  }
+  .quote .h4 {
+    font-size: 20px;
+    font-weight: 400;
+  }
+  .quote .h5 {
+    font-size: 15px;
+    font-weight: 400;
+  }
+}
+@media (max-width: 400px) {
+  .video-player {
+    width: 515vw !important;
+    height: 140vh !important;
+    transform: translateY(-20vh) translateX(-200vw);
+  }
+}
