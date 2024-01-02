@@ -12,6 +12,13 @@ const firebaseConfig = {
   let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
   let UserInfo = JSON.parse(localStorage.getItem("user-info"));
   let unsavedData = JSON.parse(localStorage.getItem("unsavedData"));
+  try   { firebase
+  .database()
+  .ref("studytime")
+  .child(UserCreds.uid)
+  .update({
+    Name: UserInfo.Name,
+  });} catch{}
   if (localStorage.getItem("unsavedData")){
     firebase
     .database()
@@ -208,10 +215,37 @@ navigator.wakeLock.request('screen')
     let screenLock;
     try {
        screenLock = await navigator.wakeLock.request('screen');
-       console.log("success")
     } catch(err) {
        console.log(err.name, err.message);
     }
     return screenLock;
   }
+}
+
+
+function pomodoroStart( studyTime, breakTime){
+  if (condition){
+    firebase
+    .database()
+    .ref("studytime")
+    .child(UserCreds.uid)
+    .update({
+      time: firebase.database.ServerValue.increment(clock-time),
+    });
+
+  }
+  let StudyTime = document.getElementById(studyTime).value;
+  let BreakTime = document.getElementById(breakTime).value;
+  clock = StudyTime*60;
+  try {
+    
+  clearInterval(timer);
+  }
+  catch(err) {
+   
+  }
+  time = clock
+  Break = BreakTime*60;
+  startTimer();
+  document.querySelector('.pomodoroSettings').classList.remove('show');
 }

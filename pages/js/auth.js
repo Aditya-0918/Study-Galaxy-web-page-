@@ -114,7 +114,8 @@ let signInUser = async (evt) => {
     if (credentials.user.emailVerified) {
       // Proceed with sign-in
       Swal.fire({
-        html: `<span class="spinner-border text-primary spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`,
+        html: `<span class="spinner-border text-primary
+         spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...`,
 
         showConfirmButton: false,
       });

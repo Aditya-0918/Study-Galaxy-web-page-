@@ -14,21 +14,6 @@
 </head>
 
 <body>
-  <!-- <video autoplay loop muted style="
-        height: 100vh;
-        width: 100vw;
-        z-index: -100;
-        position: fixed;
-        left: 0;
-        top: 0;
-        background-attachment: fixed;
-        object-fit: cover;
-        margin: 0 !important;
-        padding: 0;
-      ">
-    <source src="/assets/bg.mp4" srcset="" />
-  </video> -->
-
   <div class="cont">
     <div style="object-fit: cover; position: fixed; z-index: -99; width: 100vw; height: 100vh">
         <iframe frameborder="0" class="video-player" id="youtube-video" st 
@@ -52,7 +37,7 @@
           <span><i class="bi bi-card-image fa-lg"></i></span>
         </li>
         <li>
-          <span><i class="bi bi-stopwatch fa-lg"></i></span>
+          <span><i  class="bi bi-stopwatch fa-lg"></i></span>
         </li>
         <li>
           <span><i id="mute" class="bi bi-music-note fa-lg"></i></span>
@@ -74,6 +59,29 @@
       <span class="h2">“</span><span class="h4" id="quote"></span><span class="h2">”</span>
       <span class="h5" id="quote-author"></span>
     </div>
+    <div class="pomodoroSettings">
+
+      <label for="studyTime" class="fs-6">Study Time:</label>
+      <div>
+
+        <button class="timr" onclick="decreaseMinutes('studyTime')"><i class="bi bi-dash-circle"></i></button>
+        <input type="number" name="studyTime" id="studyTime"  value="25" min="25" max="120" step="5" onblur="checkInput('studyTime')">
+        <butto class="timr"n onclick="increaseMinutes('studyTime')"><i class="bi bi-plus-circle"></i></butto>
+      </div>
+    
+      <label for="breakTime" class="fs-6">Break Time:</label>
+      <div>
+
+        <button class="timr" onclick="decreaseMinutes('breakTime')"><i class="bi bi-dash-circle"></i></button>
+        <input type="number" name="breakTime" id="breakTime" value="5" min="0" max="20" step="5" onblur="checkInput('breakTime')">
+        <button class="timr" onclick="increaseMinutes('breakTime')"><i class="bi bi-plus-circle"></i></button>
+      </div>
+      <button id="submit" type="submit" class="btn btn-success " onclick="pomodoroStart('studyTime', 'breakTime' )">Apply</button>
+    </div>
+      
+
+      
+    </div>
   </div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
@@ -82,4 +90,50 @@
 <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="script.js"></script>
+
+
+<script>
+  function increaseMinutes(inputId) {
+    var inputElement = document.getElementById(inputId);
+    var currentValue = parseInt(inputElement.value);
+
+    if (currentValue < parseInt(inputElement.max)) {
+      inputElement.value = Math.floor(currentValue / 5) * 5 + 5;
+      if (parseInt(inputElement.value) > parseInt(inputElement.max)) {
+        inputElement.value = parseInt(inputElement.max);
+      }
+    }
+  }
+
+  function decreaseMinutes(inputId) {
+    var inputElement = document.getElementById(inputId);
+    var currentValue = parseInt(inputElement.value);
+
+    if (currentValue >= parseInt(inputElement.min) + 5) {
+      inputElement.value = Math.floor(currentValue / 5) * 5 - 5;
+      if (parseInt(inputElement.value) < parseInt(inputElement.min)) {
+        inputElement.value = parseInt(inputElement.min);
+      }
+    }
+  }
+
+  function checkInput(inputId) {
+    var inputElement = document.getElementById(inputId);
+    var value = parseInt(inputElement.value);
+
+    if (value < parseInt(inputElement.min)) {
+      inputElement.value = parseInt(inputElement.min);
+    } else if (value > parseInt(inputElement.max)) {
+      inputElement.value = parseInt(inputElement.max);
+    } else if (value % 5 !== 0) {
+      // Round down to the nearest multiple of 5
+      inputElement.value = Math.floor(value / 5) * 5;
+    }
+  }
+
+  document.querySelector('.bi-stopwatch').addEventListener('click', () => {
+    document.querySelector('.pomodoroSettings').classList.toggle('show');
+  })
+</script>
+
 </html>

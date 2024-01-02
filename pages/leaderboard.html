@@ -26,7 +26,7 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNavDropdown">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link " href="">Dashboard</a>
+                    <a class="nav-link " href="studygalaxy.html">Dashboard</a>
                 </li>
 
                 <li class="nav-item">
@@ -85,7 +85,7 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Score</th>
+                    <th scope="col">Time</th>
                 </tr>
             </thead>
             <tbody id="boardBody">
@@ -154,11 +154,9 @@
 
     const databaseRef = firebase.database().ref();
 
-    // Specify the date
-    const date = '24-12-2023';
 
     // Retrieve data for a specific date
-    databaseRef.child(date).once('value', (snapshot) => {
+    databaseRef.child('studytime').once('value', (snapshot) => {
         if (snapshot.exists()) {
             // Data for the specified date exists
             const dateData = snapshot.val();
@@ -180,10 +178,11 @@
                 const sno = index + 1;
 
                 // Update the serial number in the database
-                databaseRef.child(date).child(user.uid).update({ sno });
-
+                databaseRef.child('studytime').child(user.uid).update({ sno });
+               
+                let time = `${user.time}`*6/36000;
                 // Append the HTML for each user to the string
-                html += `<tr><th scope="row">${sno}</th><td>${user.Name}</td><td>${user.score}</td></tr>`;
+                html += `<tr><th scope="row">${sno}</th><td>${user.Name}</td><td>`+  (Math.round(time * 10) / 10)+`</td></tr>`;
 
             });
 

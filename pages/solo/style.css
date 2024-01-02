@@ -89,6 +89,61 @@ nav ul {
 .bt {
   display: none;
 }
+.pomodoroSettings {
+  color: #fff;
+  background-color: #212529;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; 
+  width: 200px;
+  border-radius: 20px 0 20px 20px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translateX(100%);
+  transition: .2s ease-in-out;
+}
+
+.pomodoroSettings .timr{
+  color: #fff;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  font-size: 15px;
+  font-family: 'Roboto Mono', monospace;
+  cursor: pointer;
+
+  margin-bottom: 30px;
+}
+
+.pomodoroSettings input {
+  color: #fff;
+  padding: 5px;
+  border: none;
+  background-color: transparent;
+  font-size: 25px;
+  font-family: 'Roboto Mono', monospace;
+  appearance: none ;
+  text-align: center;
+  border-bottom: 2px solid #fff;
+}
+.show{
+  transform: translatex(0);
+}
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input:focus{
+  outline: none;
+}
+.pomodoroSettings button[type=submit] {
+  color: #fff;
+  font-size: 15px;
+  padding-left: 10px;
+}
 @media (max-width: 1450px) {
   .video-player {
     width: 125vw !important;
