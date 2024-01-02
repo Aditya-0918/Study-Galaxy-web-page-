@@ -63,7 +63,7 @@ const firebaseConfig = {
     timer = setInterval(() => {
       getScreenLock()
       if (time === 3) {
-        // playAdudio("countdown.mp3");
+        document.getElementById('countdown').play();
       }
       if (time > 0) {
         // progress(time);
