@@ -13,15 +13,14 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@5.0.15/dark.css" />
 </head>
 
-<body>
+<body scroll="no" style="overflow: hidden !important">
   <div class="cont">
-    <div style="object-fit: cover; position: fixed; z-index: -99; width: 100vw; height: 100vh">
+    <div style="object-fit: cover; position: fixed; overflow: hidden; z-index: -3; width: 100vw; height: 100vh">
         <iframe frameborder="0" class="video-player" id="youtube-video" st 
           src="https://youtube.com/embed/ezdP1lzsNUg?autoplay=1&controls=0&showinfo=0&autohide=1&mute=1">
         </iframe>
       </div> 
     <section class="profile">
-      <!-- <img src="" alt="" /> -->
       <span id="name" class="h5">Welcome : </span>
       <span class="h2">Have a great study session</span>
       <h4 class="h5">Session - <span class="h4"></span></h4>
@@ -93,47 +92,47 @@
 
 
 <script>
-  function increaseMinutes(inputId) {
-    var inputElement = document.getElementById(inputId);
-    var currentValue = parseInt(inputElement.value);
+function increaseMinutes(inputId) {
+  var inputElement = document.getElementById(inputId);
+  var currentValue = parseInt(inputElement.value);
 
-    if (currentValue < parseInt(inputElement.max)) {
-      inputElement.value = Math.floor(currentValue / 5) * 5 + 5;
-      if (parseInt(inputElement.value) > parseInt(inputElement.max)) {
-        inputElement.value = parseInt(inputElement.max);
-      }
-    }
-  }
-
-  function decreaseMinutes(inputId) {
-    var inputElement = document.getElementById(inputId);
-    var currentValue = parseInt(inputElement.value);
-
-    if (currentValue >= parseInt(inputElement.min) + 5) {
-      inputElement.value = Math.floor(currentValue / 5) * 5 - 5;
-      if (parseInt(inputElement.value) < parseInt(inputElement.min)) {
-        inputElement.value = parseInt(inputElement.min);
-      }
-    }
-  }
-
-  function checkInput(inputId) {
-    var inputElement = document.getElementById(inputId);
-    var value = parseInt(inputElement.value);
-
-    if (value < parseInt(inputElement.min)) {
-      inputElement.value = parseInt(inputElement.min);
-    } else if (value > parseInt(inputElement.max)) {
+  if (currentValue < parseInt(inputElement.max)) {
+    inputElement.value = Math.floor(currentValue / 5) * 5 + 5;
+    if (parseInt(inputElement.value) > parseInt(inputElement.max)) {
       inputElement.value = parseInt(inputElement.max);
-    } else if (value % 5 !== 0) {
-      // Round down to the nearest multiple of 5
-      inputElement.value = Math.floor(value / 5) * 5;
     }
   }
+}
 
-  document.querySelector('.bi-stopwatch').addEventListener('click', () => {
-    document.querySelector('.pomodoroSettings').classList.toggle('show');
-  })
+function decreaseMinutes(inputId) {
+  var inputElement = document.getElementById(inputId);
+  var currentValue = parseInt(inputElement.value);
+
+  if (currentValue >= parseInt(inputElement.min) + 5) {
+    inputElement.value = Math.floor(currentValue / 5) * 5 - 5;
+    if (parseInt(inputElement.value) < parseInt(inputElement.min)) {
+      inputElement.value = parseInt(inputElement.min);
+    }
+  }
+}
+
+function checkInput(inputId) {
+  var inputElement = document.getElementById(inputId);
+  var value = parseInt(inputElement.value);
+
+  if (value < parseInt(inputElement.min)) {
+    inputElement.value = parseInt(inputElement.min);
+  } else if (value > parseInt(inputElement.max)) {
+    inputElement.value = parseInt(inputElement.max);
+  } else if (value % 5 !== 0) {
+    // Round down to the nearest multiple of 5
+    inputElement.value = Math.floor(value / 5) * 5;
+  }
+}
+
+document.querySelector('.bi-stopwatch').addEventListener('click', () => {
+  document.querySelector('.pomodoroSettings').classList.toggle('show');
+})
 </script>
 
 </html>

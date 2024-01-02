@@ -5,6 +5,13 @@
   padding: 0;
   box-sizing: border-box;
   user-select: none;
+  overflow: hidden !important;
+}
+html{
+  position: fixed;
+
+}
+body{
   overflow: hidden;
 }
 .quote .h4 {
@@ -37,9 +44,10 @@
   align-items: center;
   justify-content: center;
   margin: 0 !important;
-  overflow: hidden;
+  overflow: hidden !important;
   flex-direction: column;
   text-wrap: wrap;
+
 }
 .profile {
   position: absolute;
@@ -84,6 +92,7 @@ nav ul {
   color: #fff;
   font-size: 40px;
   display: none;
+  position: absolute;
 }
 
 .bt {
@@ -104,6 +113,7 @@ nav ul {
   right: 0;
   transform: translateX(100%);
   transition: .2s ease-in-out;
+  
 }
 
 .pomodoroSettings .timr{
@@ -185,6 +195,9 @@ input:focus{
   }
 }
 @media (max-width: 500px) {
+  body{
+    height: 80vh;
+  }
   .profile {
     display: none;
   }
@@ -198,6 +211,8 @@ input:focus{
     border-top: #fff 3px solid;
     padding: 0;
     background-color: #212529;
+
+    transform: translateY(100%);
   }
   nav ul {
     display: flex;
@@ -207,13 +222,14 @@ input:focus{
 
   }
   .nav {
-    transform: translateY(100%);
+    transform: translateY(250%);
   }
   .btn1 {
     display: block;
     position: absolute;
     bottom: 10px;
     right: 10px;
+    transform: translateY(150%);
   }
   .bt {
     display: block;
