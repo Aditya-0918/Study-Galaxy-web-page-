@@ -277,6 +277,8 @@ music.addEventListener("click" , () => {
   } else {
     video.muted = true;
     music.classList.add('bi-music-note');
+    music.classList.remove('bi-music-note');
+
   }
 });
 
