@@ -12,6 +12,8 @@ const firebaseConfig = {
   let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
   let UserInfo = JSON.parse(localStorage.getItem("user-info"));
   let unsavedData = JSON.parse(localStorage.getItem("unsavedData"));
+  let a = 1;
+  const sessionNo = document.querySelector('.sessionNo');
   try   { firebase
   .database()
   .ref("studytime")
@@ -59,6 +61,7 @@ const firebaseConfig = {
   var clock = time;
   var condition = true;
   const startTimer = () => {
+    sessionNo.innerHTML = a;
     window.addEventListener("beforeunload", beforeUnloadHandler);
     timer = setInterval(() => {
       getScreenLock()
@@ -102,6 +105,7 @@ const firebaseConfig = {
             time: firebase.database.ServerValue.increment(clock),
           });
         time = clock;
+        a++;
         const swalWithBootstrapButtons = Swal.mixin({
           customClass: {
             confirmButton: "btn btn-success",
@@ -251,3 +255,28 @@ function pomodoroStart( studyTime, breakTime){
   startTimer();
   document.querySelector('.pomodoroSettings').classList.remove('show');
 }
+function addvid(){
+try {
+video.innerHTML = `<source src="https://docs.google.com/uc?export=download&id=1ybZCuydro5I0rn1LysblAQ4ZYBpIyM0b" type='video/mp4'>`;
+
+}
+catch(err) {
+  addvid();
+}}
+const video = document.querySelector("video");
+
+video.addEventListener("ended",  addvid());
+
+const music = document.querySelector('.bi-music-note');
+
+music.addEventListener("click" , () => {
+  if (video.muted) {
+    video.muted = false;
+    music.classList.remove('bi-music-note');
+    music.classList.add('bi-volume-mute');
+  } else {
+    video.muted = true;
+    music.classList.add('bi-music-note');
+  }
+});
+
