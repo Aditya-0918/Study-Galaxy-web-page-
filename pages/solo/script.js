@@ -234,6 +234,8 @@ function pomodoroStart( studyTime, breakTime){
     });
 
   }
+  isTimerRunning = true;
+
   let StudyTime = document.getElementById(studyTime).value;
   let BreakTime = document.getElementById(breakTime).value;
   clock = StudyTime*60;
