@@ -6,6 +6,7 @@
   box-sizing: border-box;
   user-select: none;
   overflow: hidden !important;
+  z-index: 1;
 }
 html{
   position: fixed;
@@ -154,34 +155,7 @@ input:focus{
   font-size: 15px;
   padding-left: 10px;
 }
-@media (max-width: 1450px) {
-  .video-player {
-    width: 125vw !important;
-    height: 140vh !important;
-    transform: translateY(-20vh) translateX(-10vw);
-  }
-}
-@media (max-width: 1270px) {
-  .video-player {
-    width: 160vw !important;
-    height: 140vh !important;
-    transform: translateY(-20vh) translateX(-20vw);
-  }
-}
-@media (max-width: 1000px) {
-  .video-player {
-    width: 190vw !important;
-    height: 140vh !important;
-    transform: translateY(-20vh) translateX(-20vw);
-  }
-}
-@media (max-width: 840px) {
-  .video-player {
-    width: 250vw !important;
-    height: 140vh !important;
-    transform: translateY(-20vh) translateX(-50vw);
-  }
-}
+
 @media (max-width: 650px) {
   #pomodoro {
     font-family: "Roboto Mono", monospace;
@@ -195,6 +169,11 @@ input:focus{
   }
 }
 @media (max-width: 500px) {
+  .youtube-background{
+
+    height: 100vh !important;
+    
+  }
   body{
     height: 80vh;
   }

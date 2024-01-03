@@ -255,30 +255,29 @@ function pomodoroStart( studyTime, breakTime){
   startTimer();
   document.querySelector('.pomodoroSettings').classList.remove('show');
 }
-function addvid(){
-try {
-video.innerHTML = `<source src="https://docs.google.com/uc?export=download&id=1ybZCuydro5I0rn1LysblAQ4ZYBpIyM0b" type='video/mp4'>`;
 
-}
-catch(err) {
-  addvid();
-}}
-const video = document.querySelector("video");
+// const video = document.querySelector("video");
+const videoBackgrounds = new VideoBackgrounds('[data-vbg]' , {
+  'mobile': true,
+});
+const firstElement = document.querySelector('[data-vbg]');
 
-video.addEventListener("ended",  addvid());
-
+// get the first instance instance by UID
+const firstInstance = videoBackgrounds.get(firstElement);
 const music = document.querySelector('.bi-music-note');
-
+let muted = true;
 music.addEventListener("click" , () => {
-  if (video.muted) {
-    video.muted = false;
-    music.classList.remove('bi-music-note');
-    music.classList.add('bi-volume-mute');
-  } else {
-    video.muted = true;
+  if (!muted) {
+    firstInstance.mute();
     music.classList.add('bi-music-note');
-    music.classList.remove('bi-volume-mute');
-
+    music.classList.remove('bi-pause-fill');
+    muted = true;
+  } else {
+    firstInstance.unmute();
+    music.classList.remove('bi-music-note');
+    music.classList.add('bi-pause-fill');
+    muted = false;
   }
 });
+
 
