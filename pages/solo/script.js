@@ -47,6 +47,7 @@ const firebaseConfig = {
     document.querySelector(".btn1").style.display = "block";
   });
 
+  //randon quote genetator 
   async function randomQuote() {
     const response = await fetch("https://api.quotable.io/random");
     const quote = await response.json();
@@ -55,6 +56,7 @@ const firebaseConfig = {
     document.getElementById("quote-author").innerHTML = "-" + quote.author;
   }
   randomQuote();
+  // timer function
   const pomodoro = document.querySelector(".timer");
   var time = 1500;
   var Break = 300;
@@ -183,11 +185,12 @@ const firebaseConfig = {
   });
 
   function sendDataToDatabase() {
-    // Add your code here to send data to the database
     if (condition) {
       localStorage.setItem("unsavedData", clock - time);
     }
   }
+
+  // delete the session data which was unsaved 
   setTimeout(() => {
     localStorage.setItem("unsavedData", 0);
   }, 100);
@@ -206,14 +209,23 @@ const firebaseConfig = {
       window.location.href = "/pages/studygalaxy.html";
     }, 1000);
   });
+
+  // get username and show it to the html 
   document.getElementById("name").innerHTML += `${UserInfo.Name}`;
+
+  //screen lock to avoid truning off the screen 
+
+
+  
   function isScreenLockSupported() {
  return ('wakeLock' in navigator);
 }let screenLock;
+if(isScreenLockSupported()){
 navigator.wakeLock.request('screen')
    .then(lock => { 
      screenLock = lock; 
-});
+   });
+}
   async function getScreenLock() {
   if(isScreenLockSupported()){
     let screenLock;
@@ -227,6 +239,73 @@ navigator.wakeLock.request('screen')
 }
 
 
+
+
+// video settings and mute unmute settings
+const videoBackgrounds = new VideoBackgrounds('[data-vbg]' , {
+  'mobile': true,
+});
+const firstElement = document.querySelector('[data-vbg]');
+const firstInstance = videoBackgrounds.get(firstElement);
+const music = document.querySelector('.bi-music-note');
+let muted = true;
+music.addEventListener("click" , () => {
+  if (!muted) {
+    firstInstance.mute();
+    music.classList.add('bi-music-note');
+    music.classList.remove('bi-pause-fill');
+    muted = true;
+  } else {
+    firstInstance.unmute();
+    music.classList.remove('bi-music-note');
+    music.classList.add('bi-pause-fill');
+    muted = false;
+  }
+});
+
+
+
+// pomodoro settings 
+function increaseMinutes(inputId) {
+  var inputElement = document.getElementById(inputId);
+  var currentValue = parseInt(inputElement.value);
+
+  if (currentValue < parseInt(inputElement.max)) {
+    inputElement.value = Math.floor(currentValue / 5) * 5 + 5;
+    if (parseInt(inputElement.value) > parseInt(inputElement.max)) {
+      inputElement.value = parseInt(inputElement.max);
+    }
+  }
+}
+
+function decreaseMinutes(inputId) {
+  var inputElement = document.getElementById(inputId);
+  var currentValue = parseInt(inputElement.value);
+
+  if (currentValue >= parseInt(inputElement.min) + 5) {
+    inputElement.value = Math.floor(currentValue / 5) * 5 - 5;
+    if (parseInt(inputElement.value) < parseInt(inputElement.min)) {
+      inputElement.value = parseInt(inputElement.min);
+    }
+  }
+}
+
+function checkInput(inputId) {
+  var inputElement = document.getElementById(inputId);
+  var value = parseInt(inputElement.value);
+
+  if (value < parseInt(inputElement.min)) {
+    inputElement.value = parseInt(inputElement.min);
+  } else if (value > parseInt(inputElement.max)) {
+    inputElement.value = parseInt(inputElement.max);
+  } else if (value % 5 !== 0) {
+    inputElement.value = Math.floor(value / 5) * 5;
+  }
+}
+
+document.querySelector('.bi-stopwatch').addEventListener('click', () => {
+  document.querySelector('.pomodoroSettings').classList.toggle('show');
+});
 function pomodoroStart( studyTime, breakTime){
   if (condition){
     firebase
@@ -256,28 +335,90 @@ function pomodoroStart( studyTime, breakTime){
   document.querySelector('.pomodoroSettings').classList.remove('show');
 }
 
-// const video = document.querySelector("video");
-const videoBackgrounds = new VideoBackgrounds('[data-vbg]' , {
-  'mobile': true,
-});
-const firstElement = document.querySelector('[data-vbg]');
+// change backgrounds
 
-// get the first instance instance by UID
-const firstInstance = videoBackgrounds.get(firstElement);
-const music = document.querySelector('.bi-music-note');
-let muted = true;
-music.addEventListener("click" , () => {
-  if (!muted) {
-    firstInstance.mute();
-    music.classList.add('bi-music-note');
-    music.classList.remove('bi-pause-fill');
-    muted = true;
-  } else {
-    firstInstance.unmute();
-    music.classList.remove('bi-music-note');
-    music.classList.add('bi-pause-fill');
-    muted = false;
+
+let sourcesLofiRecords = [ 'n61ULEU7CO0' ,'TURbeWK2wwg'];
+let sourcesLofiEveryday= ['ezdP1lzsNUg','dzUHadgLiIY' , 'yKH7g4oupDE'  ,'MZhivjxcF-M','Zbd1PKd-J_o','1bPb0egItVI', 'lzqHzF1S1F4','taNGanhQ8zo','n4P3CLAxJiw', 'Wqm-qADZP3U', 'BMCHy-AyhkY', 'UbLSGl-W46E']
+// firstInstance.setSource(`https://www.youtube.com/watch?v=${sourcesLofiEveryday[0]}`)
+
+
+let bgbox = document.querySelector('.changebg');
+let defElement = '<img src="';
+let imgsrc = 'https://img.youtube.com/vi/'
+
+document.querySelector('.bi-card-image').addEventListener('click', () => {
+ 
+  document.getElementById('changebg').classList.toggle('show');
+});
+sourcesLofiEveryday.map((value) => { 
+  bgbox.innerHTML += `${defElement}${imgsrc}${value}/0.jpg" id='${value}'>`;
+});
+const loadimg = () =>{
+  Swal.fire({
+    html: `<span class="spinner-border text-primary spinner-border-sm" role="status" aria-hidden="true"></span> loading...`,
+    showConfirmButton:false,
+    allowOutsideClick: false,
+    timer: 3000
+});
+div.toggle("nav");
+document.querySelector(".btn1").style.display = "block";
+music.classList.add('bi-music-note');
+music.classList.remove('bi-pause-fill');
+}
+for(let i = 0; i < bgbox.children.length; i++){
+  let currentChild = bgbox.children[i];
+  currentChild.addEventListener('click', () => {
+    firstInstance.setSource(`https://www.youtube.com/watch?v=${currentChild.id}`);
+    firstInstance.play();
+    document.getElementById('changebg').classList.remove('show');
+    loadimg();
+  });
+}
+var lofirec = true;
+var lifiever = false;
+document.querySelector('.lofirec').addEventListener('click', () => {
+  if (lofirec){
+
+  document.querySelector('.lofiever').classList.toggle('text-primary');
+  document.querySelector('.lofirec').classList.toggle('text-primary');
+  bgbox.innerHTML = '';
+  sourcesLofiRecords.map((value) => { 
+    bgbox.innerHTML += `${defElement}${imgsrc}${value}/0.jpg" id='${value}'>`;
+    lifiever = true;
+    lofirec = false;
+  });
+  for(let i = 0; i < bgbox.children.length; i++){
+    let currentChild = bgbox.children[i];
+    currentChild.addEventListener('click', () => {
+      firstInstance.setSource(`https://www.youtube.com/watch?v=${currentChild.id}`);
+      firstInstance.play();
+      document.getElementById('changebg').classList.remove('show');
+      loadimg();
+    });
+  }
+  }
+});
+document.querySelector('.lofiever').addEventListener('click', () => {
+  if (lifiever){
+    document.querySelector('.lofiever').classList.toggle('text-primary');
+    document.querySelector('.lofirec').classList.toggle('text-primary');
+    bgbox.innerHTML = '';
+    sourcesLofiEveryday.map((value) => { 
+      bgbox.innerHTML += `${defElement}${imgsrc}${value}/0.jpg" id='${value}'>`;
+      lifiever = false;
+      lofirec = true;
+    });
+    for(let i = 0; i < bgbox.children.length; i++){
+      let currentChild = bgbox.children[i];
+      currentChild.addEventListener('click', () => {
+        firstInstance.setSource(`https://www.youtube.com/watch?v=${currentChild.id}`);
+        firstInstance.play();
+        document.getElementById('changebg').classList.remove('show');
+        loadimg();
+      });
+    }
   }
 });
 
-
+//

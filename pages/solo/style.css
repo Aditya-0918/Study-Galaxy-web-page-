@@ -62,6 +62,20 @@ body{
 .profile .h5 {
   color: rgba(255, 255, 255, 0.77);
 }
+#changebg .tabs{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  top: 0;
+  left: 0;
+  border-bottom: 3px sold #fff; border-left: 0;
+     
+}
+#changebg .tabs span{
+  padding: 8px;
+}
+
 nav {
   display: flex;
   justify-self: center;
@@ -99,7 +113,7 @@ nav ul {
 .bt {
   display: none;
 }
-.pomodoroSettings {
+.sidepannel {
   color: #fff;
   background-color: #212529;
   padding: 20px;
@@ -114,9 +128,10 @@ nav ul {
   right: 0;
   transform: translateX(100%);
   transition: .2s ease-in-out;
-  
 }
-
+.changebg{
+  width: 100%;
+}
 .pomodoroSettings .timr{
   color: #fff;
   padding: 5px;
@@ -156,6 +171,23 @@ input:focus{
   padding-left: 10px;
 }
 
+#changebg{
+  display: flex;
+  flex: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 400px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.changebg img{
+  width: 80px;
+  height: 45px;
+  margin: 20px;
+  object-fit: cover;
+}
 @media (max-width: 650px) {
   #pomodoro {
     font-family: "Roboto Mono", monospace;
@@ -169,6 +201,18 @@ input:focus{
   }
 }
 @media (max-width: 500px) {
+  .changebg img{
+    width: 80px;
+    height: 40px;
+    margin: 10px;
+  }
+  #changebg{
+    text-align: center;
+    font-size: 13px;
+    width: 225px;
+    padding: 10px;
+  }
+
   .youtube-background{
 
     height: 100vh !important;
