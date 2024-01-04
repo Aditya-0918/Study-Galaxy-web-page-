@@ -361,8 +361,6 @@ const loadimg = () =>{
     allowOutsideClick: false,
     timer: 3000
 });
-div.toggle("nav");
-document.querySelector(".btn1").style.display = "block";
 music.classList.add('bi-music-note');
 music.classList.remove('bi-pause-fill');
 }
