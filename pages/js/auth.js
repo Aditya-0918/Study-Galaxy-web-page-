@@ -65,7 +65,7 @@ let registerUser = async (evt) => {
     // Set user registration details with the incremented counter
     const userRef = doc(db, "UserAuthList", credentials.user.uid);
     await setDoc(userRef, {
-      Name: username.value,
+      Name: "",
       email: emailreg.value,
       regNo: userCount,
     });
@@ -159,7 +159,6 @@ let signInUser = async (evt) => {
 loginForm.addEventListener("submit", signInUser);
 signupForm.addEventListener("submit", registerUser);
 
-
 // Function to login with Google
 let signInUserWithGoogle = async () => {
   const googleProvider = new GoogleAuthProvider();
@@ -170,18 +169,21 @@ let signInUserWithGoogle = async () => {
     let userCount = counterDoc.exists() ? counterDoc.data().count + 1 : 1;
 
     // Set user registration details with the incremented counter
-    const userRef = doc(db, "UserAuthList", credentials.user.uid);
-    await setDoc(userRef, {
-      Name: username.value,
-      email: emailreg.value,
-      regNo: userCount,
-    });
 
+    const ref = doc(db, "UserAuthList", credentials.user.uid);
+    const docSnap = await getDoc(ref);
+    if (!docSnap.exists()) {
+      const userRef = doc(db, "UserAuthList", credentials.user.uid);
+      await setDoc(userRef, {
+        Name: username.value,
+        email: emailreg.value,
+        regNo: userCount,
+      });
+      await setDoc(userCounterRef, { count: userCount });
+    }
     // Update the user counter in the database
-    await setDoc(userCounterRef, { count: userCount });
 
     await saveUserInfo(credentials);
-
   } catch (error) {
     console.error("Google Authentication Error:", error.message);
   }
@@ -208,5 +210,7 @@ async function saveUserInfo(credentials) {
 }
 
 // Event listeners for Google and Discord login buttons
-document.getElementById("googleLoginBtn").addEventListener("click", signInUserWithGoogle);
+document
+  .getElementById("googleLoginBtn")
+  .addEventListener("click", signInUserWithGoogle);
 // document.getElementById("loginwithfb").addEventListener("click", loginWithFacebook);
