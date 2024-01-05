@@ -209,4 +209,4 @@ async function saveUserInfo(credentials) {
 
 // Event listeners for Google and Discord login buttons
 document.getElementById("googleLoginBtn").addEventListener("click", signInUserWithGoogle);
-document.getElementById("loginwithfb").addEventListener("click", loginWithFacebook);
+// document.getElementById("loginwithfb").addEventListener("click", loginWithFacebook);
