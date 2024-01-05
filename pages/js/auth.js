@@ -28,7 +28,6 @@ const firebaseConfig = {
   storageBucket: "studygalaxy-8aa56.appspot.com",
   messagingSenderId: "657368593724",
   appId: "1:657368593724:web:ee0b1facca005fe9689a39",
-  authDomain: "127.0.0.1",
 };
 
 // Initialize Firebase
