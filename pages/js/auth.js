@@ -4,6 +4,10 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  OAuthProvider, // Add OAuthProvider import
+  signInWithPopup,
+  FacebookAuthProvider,
+  GoogleAuthProvider,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import {
   getFirestore,
@@ -24,6 +28,7 @@ const firebaseConfig = {
   storageBucket: "studygalaxy-8aa56.appspot.com",
   messagingSenderId: "657368593724",
   appId: "1:657368593724:web:ee0b1facca005fe9689a39",
+  authDomain: "127.0.0.1",
 };
 
 // Initialize Firebase
@@ -38,6 +43,8 @@ let passwordreg = document.getElementById("passwordreg");
 let loginForm = document.getElementById("login");
 let signupForm = document.getElementById("signup");
 let username = document.getElementById("username");
+const discordClientId = "1189554323026362468";
+const discordRedirectUri = "http://localhost:5500/discord-callback"; // Update with your callback URI
 
 let registerUser = async (evt) => {
   evt.preventDefault();
@@ -86,6 +93,17 @@ let registerUser = async (evt) => {
     console.error(error.message);
   }
 };
+async function loginWithFacebook() {
+  const auth = getAuth();
+  const provider = new FacebookAuthProvider();
+
+  try {
+    const result = await signInWithPopup(auth, provider);
+    saveUserInfo(result);
+  } catch (error) {
+    console.error("Error signing in with Facebook:", error.message);
+  }
+}
 
 // Send verification email function
 async function sendVerificationEmail(user) {
@@ -154,3 +172,42 @@ let signInUser = async (evt) => {
 
 loginForm.addEventListener("submit", signInUser);
 signupForm.addEventListener("submit", registerUser);
+
+
+// Function to login with Google
+let signInUserWithGoogle = async () => {
+  const googleProvider = new GoogleAuthProvider();
+  try {
+    const credentials = await signInWithPopup(auth, googleProvider);
+
+    // Save user information to Firebase
+    await saveUserInfo(credentials);
+
+  } catch (error) {
+    console.error("Google Authentication Error:", error.message);
+  }
+};
+
+async function saveUserInfo(credentials) {
+  try {
+    const ref = doc(db, "UserAuthList", credentials.user.uid);
+    const docSnap = await getDoc(ref);
+
+    if (docSnap.exists()) {
+      localStorage.setItem(
+        "user-info",
+        JSON.stringify({
+          Name: docSnap.data().Name,
+        })
+      );
+      localStorage.setItem("user-creds", JSON.stringify(credentials.user));
+      window.location.href = "studygalaxy.html";
+    }
+  } catch (error) {
+    console.error("Error saving user information:", error.message);
+  }
+}
+
+// Event listeners for Google and Discord login buttons
+document.getElementById("googleLoginBtn").addEventListener("click", signInUserWithGoogle);
+document.getElementById("loginwithfb").addEventListener("click", loginWithFacebook);

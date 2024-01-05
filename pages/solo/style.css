@@ -7,6 +7,8 @@
   user-select: none;
   overflow: hidden !important;
   z-index: 1;
+  text-shadow: #212529 1px 1px;
+
 }
 html{
   position: fixed;
@@ -17,8 +19,7 @@ body{
 }
 .quote .h4 {
   font-family: "Quando";
-  color: rgba(215, 213, 213, 0.71);
-  text-shadow: #212529 1px 1px;
+  color: rgb(255, 255, 255);
   font-weight: 400;
 }
 .quote span{

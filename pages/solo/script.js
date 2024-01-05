@@ -47,14 +47,19 @@ const firebaseConfig = {
     document.querySelector(".btn1").style.display = "block";
   });
 
-  //randon quote genetator 
+  
   async function randomQuote() {
-    const response = await fetch("https://api.quotable.io/random");
+    const response = await fetch("https://api.quotable.io/quotes?tags=Education|famous-quotes|inspirational|knowledge");
     const quote = await response.json();
-    // Output the quote and author name
-    document.getElementById("quote").innerHTML = quote.content;
-    document.getElementById("quote-author").innerHTML = "-" + quote.author;
+    if (response.ok) {
+      // Update DOM elements
+      console.log(quote);
+    document.getElementById("quote").innerHTML = `“ ${quote.results[0].content}”`;
+    document.getElementById("quote-author").innerHTML = "-" + quote.results[0].author;
+    } 
   }
+  
+  
   randomQuote();
   // timer function
   const pomodoro = document.querySelector(".timer");
@@ -108,6 +113,8 @@ const firebaseConfig = {
           });
         time = clock;
         a++;
+        randomQuote();
+        
         const swalWithBootstrapButtons = Swal.mixin({
           customClass: {
             confirmButton: "btn btn-success",
@@ -339,7 +346,7 @@ function pomodoroStart( studyTime, breakTime){
 
 
 let sourcesLofiRecords = [ 'n61ULEU7CO0' ,'TURbeWK2wwg'];
-let sourcesLofiEveryday= ['ezdP1lzsNUg','dzUHadgLiIY' , 'yKH7g4oupDE'  ,'MZhivjxcF-M','Zbd1PKd-J_o','1bPb0egItVI', 'lzqHzF1S1F4','taNGanhQ8zo','n4P3CLAxJiw', 'Wqm-qADZP3U', 'BMCHy-AyhkY', 'UbLSGl-W46E']
+let sourcesLofiEveryday= ['ezdP1lzsNUg','dzUHadgLiIY' , 'ZVEGvdh4-bM' , 'yKH7g4oupDE'  ,'MZhivjxcF-M','Zbd1PKd-J_o','1bPb0egItVI', 'lzqHzF1S1F4','taNGanhQ8zo','n4P3CLAxJiw', 'Wqm-qADZP3U', 'BMCHy-AyhkY', 'UbLSGl-W46E']
 // firstInstance.setSource(`https://www.youtube.com/watch?v=${sourcesLofiEveryday[0]}`)
 
 
@@ -418,5 +425,3 @@ document.querySelector('.lofiever').addEventListener('click', () => {
     }
   }
 });
-
-//
