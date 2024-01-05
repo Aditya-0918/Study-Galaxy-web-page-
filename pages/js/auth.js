@@ -6,7 +6,6 @@ import {
   signInWithEmailAndPassword,
   OAuthProvider, // Add OAuthProvider import
   signInWithPopup,
-  FacebookAuthProvider,
   GoogleAuthProvider,
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 import {
@@ -92,18 +91,6 @@ let registerUser = async (evt) => {
     console.error(error.message);
   }
 };
-async function loginWithFacebook() {
-  const auth = getAuth();
-  const provider = new FacebookAuthProvider();
-
-  try {
-    const result = await signInWithPopup(auth, provider);
-    saveUserInfo(result);
-  } catch (error) {
-    console.error("Error signing in with Facebook:", error.message);
-  }
-}
-
 // Send verification email function
 async function sendVerificationEmail(user) {
   try {
@@ -178,8 +165,21 @@ let signInUserWithGoogle = async () => {
   const googleProvider = new GoogleAuthProvider();
   try {
     const credentials = await signInWithPopup(auth, googleProvider);
+    const userCounterRef = doc(db, "UserAuthList", "userCounter");
+    const counterDoc = await getDoc(userCounterRef);
+    let userCount = counterDoc.exists() ? counterDoc.data().count + 1 : 1;
 
-    // Save user information to Firebase
+    // Set user registration details with the incremented counter
+    const userRef = doc(db, "UserAuthList", credentials.user.uid);
+    await setDoc(userRef, {
+      Name: username.value,
+      email: emailreg.value,
+      regNo: userCount,
+    });
+
+    // Update the user counter in the database
+    await setDoc(userCounterRef, { count: userCount });
+
     await saveUserInfo(credentials);
 
   } catch (error) {
