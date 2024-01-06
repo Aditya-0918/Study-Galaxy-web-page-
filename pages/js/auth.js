@@ -162,14 +162,17 @@ signupForm.addEventListener("submit", registerUser);
 // Function to login with Google
 let signInUserWithGoogle = async () => {
   const googleProvider = new GoogleAuthProvider();
+  let userCount;
+
   try {
     const credentials = await signInWithPopup(auth, googleProvider);
     const userCounterRef = doc(db, "UserAuthList", "userCounter");
     const counterDoc = await getDoc(userCounterRef);
-    let userCount = counterDoc.exists() ? counterDoc.data().count + 1 : 1;
+    userCount = counterDoc.exists() ? counterDoc.data().count + 1 : 1;
 
     // Set user registration details with the incremented counter
-    const name = credentials.displayName || "Unknown"; // Use "Unknown" if displayName is undefined
+    const name = credentials.user.displayName || "Unknown"; // Use "Unknown" if displayName is undefined
+    const email = credentials.user.email || "Unknown@example.com"; // Use a default email if credentials.email is undefined
     const ref = doc(db, "UserAuthList", credentials.user.uid);
     const docSnap = await getDoc(ref);
 
@@ -177,7 +180,7 @@ let signInUserWithGoogle = async () => {
       const userRef = doc(db, "UserAuthList", credentials.user.uid);
       await setDoc(userRef, {
         Name: name,
-        email: credentials.email,
+        email: email,
         regNo: userCount,
       });
       await setDoc(userCounterRef, { count: userCount });
@@ -190,7 +193,6 @@ let signInUserWithGoogle = async () => {
   }
 };
 
-
 async function saveUserInfo(credentials) {
   try {
     const ref = doc(db, "UserAuthList", credentials.user.uid);
@@ -201,6 +203,8 @@ async function saveUserInfo(credentials) {
         "user-info",
         JSON.stringify({
           Name: docSnap.data().Name,
+          email: docSnap.data().email,
+          regNo: docSnap.data().regNo,
         })
       );
       localStorage.setItem("user-creds", JSON.stringify(credentials.user));
