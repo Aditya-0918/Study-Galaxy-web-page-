@@ -169,25 +169,27 @@ let signInUserWithGoogle = async () => {
     let userCount = counterDoc.exists() ? counterDoc.data().count + 1 : 1;
 
     // Set user registration details with the incremented counter
-
+    const name = credentials.displayName || "Unknown"; // Use "Unknown" if displayName is undefined
     const ref = doc(db, "UserAuthList", credentials.user.uid);
     const docSnap = await getDoc(ref);
+
     if (!docSnap.exists()) {
       const userRef = doc(db, "UserAuthList", credentials.user.uid);
       await setDoc(userRef, {
-        Name: credentials.displayName,
+        Name: name,
         email: credentials.email,
         regNo: userCount,
       });
       await setDoc(userCounterRef, { count: userCount });
     }
-    // Update the user counter in the database
 
+    // Update the user counter in the database
     await saveUserInfo(credentials);
   } catch (error) {
     console.error("Google Authentication Error:", error.message);
   }
 };
+
 
 async function saveUserInfo(credentials) {
   try {
