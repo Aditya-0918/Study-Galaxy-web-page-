@@ -175,8 +175,8 @@ let signInUserWithGoogle = async () => {
     if (!docSnap.exists()) {
       const userRef = doc(db, "UserAuthList", credentials.user.uid);
       await setDoc(userRef, {
-        Name: username.value,
-        email: emailreg.value,
+        Name: credentials.displayName,
+        email: credentials.email,
         regNo: userCount,
       });
       await setDoc(userCounterRef, { count: userCount });
