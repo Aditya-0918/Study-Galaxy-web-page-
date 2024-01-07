@@ -22,19 +22,11 @@ const data = gtdate + "-" + month ;
   try   { firebase
   .database()
   .ref("studytime")
-  .child(UserCreds.uid).child(date)
+  .child(UserCreds.uid).child(data)
   .update({
     Name: UserInfo.Name,
   });} catch{}
-  if (localStorage.getItem("unsavedData")){
-    firebase
-    .database()
-    .ref("studytime")
-    .child(UserCreds.uid).child(date)
-    .update({
-      time: firebase.database.ServerValue.increment(unsavedData),
-    });
-  }
+
   let checkCred = () => {
     if (!localStorage.getItem("user-creds")) {
       window.location.href = "/pages/Login.html";
@@ -74,6 +66,11 @@ const data = gtdate + "-" + month ;
   var condition = true;
   const startTimer = () => {
     sessionNo.innerHTML = a;
+    if (condition) {
+      upgtime = setInterval(() => {
+        updateStudyTime();
+      }, 30000);
+    }
     window.addEventListener("beforeunload", beforeUnloadHandler);
     timer = setInterval(() => {
       getScreenLock()
@@ -109,13 +106,6 @@ const data = gtdate + "-" + month ;
         });
       } else {
         window.removeEventListener("beforeunload", beforeUnloadHandler);
-        firebase
-          .database()
-          .ref("studytime")
-          .child(UserCreds.uid).child(date)
-          .update({
-            time: firebase.database.ServerValue.increment(clock),
-          });
         time = clock;
         a++;
         randomQuote();
@@ -166,6 +156,7 @@ const data = gtdate + "-" + month ;
             }
           });
         clearInterval(timer);
+        clearInterval(upgtime);
       }
     }, 1000);
   };
@@ -174,7 +165,8 @@ const data = gtdate + "-" + month ;
   let isReloading = false;
   pomodoro.addEventListener("click", () => {
     if (isTimerRunning) {
-      clearInterval(timer); // Pause the timer
+      clearInterval(timer); 
+      clearInterval(upgtime);// Pause the timer
     } else {
       startTimer(); // Start or resume the timer
     }
@@ -190,29 +182,9 @@ const data = gtdate + "-" + month ;
     (event || window.event).returnValue = confirmationMessage;
     return confirmationMessage;
   }
-  window.addEventListener("unload", function () {
-    if (isReloading) {
-      sendDataToDatabase();
-    }
-  });
 
-  function sendDataToDatabase() {
-    if (condition) {
-      localStorage.setItem("unsavedData", clock - time);
-    }
-  }
-
-  // delete the session data which was unsaved 
-  setTimeout(() => {
-    localStorage.setItem("unsavedData", 0);
-  }, 100);
 
   document.getElementById("quit").addEventListener("click", () => {
-    if (condition) {
-      window.removeEventListener("beforeunload", beforeUnloadHandler);
-      firebase.database().ref("studytime").child(UserCreds.uid).child(date).update({
-          time: firebase.database.ServerValue.increment(clock - time)});
-    }
     Swal.fire({
                     html: `<span class="spinner-border text-primary spinner-border-sm" role="status" aria-hidden="true"></span> loading...`,
                     showConfirmButton:false,
@@ -301,6 +273,15 @@ function decreaseMinutes(inputId) {
     }
   }
 }
+function updateStudyTime() {
+  firebase
+    .database()
+    .ref("studytime")
+    .child(UserCreds.uid).child(data)
+    .update({
+      time: firebase.database.ServerValue.increment(30),
+    });
+}
 
 function checkInput(inputId) {
   var inputElement = document.getElementById(inputId);
@@ -319,16 +300,6 @@ document.querySelector('.bi-stopwatch').addEventListener('click', () => {
   document.querySelector('.pomodoroSettings').classList.toggle('show');
 });
 function pomodoroStart( studyTime, breakTime){
-  if (condition){
-    firebase
-    .database()
-    .ref("studytime")
-    .child(UserCreds.uid).child(date)
-    .update({
-      time: firebase.database.ServerValue.increment(clock-time),
-    });
-
-  }
   isTimerRunning = true;
 
   let StudyTime = document.getElementById(studyTime).value;
@@ -337,6 +308,8 @@ function pomodoroStart( studyTime, breakTime){
   try {
     
   clearInterval(timer);
+  clearInterval(upgtime);
+
   }
   catch(err) {
    

@@ -155,6 +155,36 @@
     firebase.initializeApp(firebaseConfig);
 
     const databaseRef = firebase.database().ref();
+    function updateTotalTimeForUID(userUid) {
+  const database = firebase.database();
+  const studyTimeRef = database.ref("studytime");
+
+  studyTimeRef.child(userUid).once("value")
+    .then(uidSnapshot => {
+      let currentTotalTime = 0;
+
+      // Iterate through each date and update the total time
+      uidSnapshot.forEach(dateSnapshot => {
+        const time = dateSnapshot.child("time").val() || 0;
+        currentTotalTime += time;
+      });
+
+      // Update the total time for the UID
+      return studyTimeRef.child(userUid).update({
+        "time": currentTotalTime,
+      });
+    })
+    .then(() => {
+      console.log(`Total time for ${userUid} updated successfully`);
+    })
+    .catch(error => {
+      console.error("Error updating total time:", error);
+    });
+}
+
+// Example usage
+const userUid = UserCreds.uid; // Replace with your actual UID
+updateTotalTimeForUID(userUid);
 
 
     // Retrieve data for a specific date
@@ -182,7 +212,7 @@
                 // Update the serial number in the database
                 databaseRef.child('studytime').child(user.uid).update({ sno });
                
-                let time = `${user.time}`*6/36000;
+                let time = `${user.time}`/3600;
                 // Append the HTML for each user to the string
                 html += `<tr><th scope="row">${sno}</th><td>${user.Name}</td><td>`+  (Math.round(time * 10) / 10)+`</td></tr>`;
 
