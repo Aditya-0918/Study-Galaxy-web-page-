@@ -7,6 +7,11 @@ const firebaseConfig = {
     messagingSenderId: "657368593724",
     appId: "1:657368593724:web:ee0b1facca005fe9689a39",
   };
+const d = new Date();
+let gtdate = d.getDate();
+let month = d.getMonth() + 1;
+const data = gtdate + "-" + month ;
+
 
   firebase.initializeApp(firebaseConfig);
   let UserCreds = JSON.parse(localStorage.getItem("user-creds"));
@@ -17,7 +22,7 @@ const firebaseConfig = {
   try   { firebase
   .database()
   .ref("studytime")
-  .child(UserCreds.uid)
+  .child(UserCreds.uid).child(date)
   .update({
     Name: UserInfo.Name,
   });} catch{}
@@ -25,7 +30,7 @@ const firebaseConfig = {
     firebase
     .database()
     .ref("studytime")
-    .child(UserCreds.uid)
+    .child(UserCreds.uid).child(date)
     .update({
       time: firebase.database.ServerValue.increment(unsavedData),
     });
@@ -107,7 +112,7 @@ const firebaseConfig = {
         firebase
           .database()
           .ref("studytime")
-          .child(UserCreds.uid)
+          .child(UserCreds.uid).child(date)
           .update({
             time: firebase.database.ServerValue.increment(clock),
           });
@@ -205,7 +210,7 @@ const firebaseConfig = {
   document.getElementById("quit").addEventListener("click", () => {
     if (condition) {
       window.removeEventListener("beforeunload", beforeUnloadHandler);
-      firebase.database().ref("studytime").child(UserCreds.uid).update({
+      firebase.database().ref("studytime").child(UserCreds.uid).child(date).update({
           time: firebase.database.ServerValue.increment(clock - time)});
     }
     Swal.fire({
@@ -318,7 +323,7 @@ function pomodoroStart( studyTime, breakTime){
     firebase
     .database()
     .ref("studytime")
-    .child(UserCreds.uid)
+    .child(UserCreds.uid).child(date)
     .update({
       time: firebase.database.ServerValue.increment(clock-time),
     });
