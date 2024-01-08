@@ -19,13 +19,19 @@ const data = gtdate + "-" + month ;
   let unsavedData = JSON.parse(localStorage.getItem("unsavedData"));
   let a = 1;
   const sessionNo = document.querySelector('.sessionNo');
-  try   { firebase
-  .database()
-  .ref("studytime")
-  .child(UserCreds.uid).child(data)
-  .update({
+  try   { 
+    let firbse = firebase.database().ref("studytime").child(UserCreds.uid)
+
+  firbse.update({
     Name: UserInfo.Name,
-  });} catch{}
+  });
+  firbse.child(data)
+    .update({
+      time: firebase.database.ServerValue.increment(0),
+    });
+
+
+} catch{}
 
   let checkCred = () => {
     if (!localStorage.getItem("user-creds")) {
