@@ -409,3 +409,18 @@ document.querySelector('.lofiever').addEventListener('click', () => {
     }
   }
 });
+// bg by url 
+document.getElementById('custombg').addEventListener('click' , async()=>{
+  const { value: url } =  await Swal.fire({
+  input: "url",
+  inputLabel: "add youtube video address",  
+  showCancelButton: true,
+  inputPlaceholder: "Enter youtube video URL"
+});
+if (url) {
+  firstInstance.setSource(`https://www.youtube.com/watch?v=${url}`);
+        firstInstance.play();
+        document.getElementById('changebg').classList.remove('show');
+        loadimg();
+}
+});
